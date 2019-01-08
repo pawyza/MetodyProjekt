@@ -1,5 +1,8 @@
 package Interfaces;
 
+
+import sample.RocketCrashedException;
+
 public interface Observer {
-    void update();
+    void update() throws RocketCrashedException;
 }

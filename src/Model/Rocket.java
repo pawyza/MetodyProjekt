@@ -1,6 +1,9 @@
 package Model;
 
-public class Rocket {
+import Interfaces.Observer;
+import sample.RocketCrashedException;
+
+public class Rocket{
 
     private double velocity;
     private double mass;

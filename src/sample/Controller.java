@@ -31,20 +31,17 @@ public class Controller implements Initializable {
      *
      */
 
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     private final double startVelocity = -150;
-    private final double startHeight = 50000;
+    private final double startHeight = 200;
     private final double startMass = 2730.14;
-    private final double step = 1;
+    private final double step = 0.1;
 
 
     private Threads thread;
     private  Integrator integrator;
     private Rocket rocket;
-
-    public Controller() {
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,11 +49,11 @@ public class Controller implements Initializable {
 
 // initialize
         thread = new Threads();
-        rocket = new Rocket(startVelocity,startHeight,startMass);
+        rocket = new Rocket(startVelocity,startMass,startHeight);
         integrator = new Integrator(rocket,step);
 
 // add observers to list
-        thread.addObserver(integrator);
+        observers.add(integrator);
 
 
 
@@ -124,11 +121,27 @@ public class Controller implements Initializable {
 
 
     boolean pressed = false;
+
     @FXML
     void changeState(ActionEvent event) {
-//        txtSliderValue.textProperty().bind(Bindings.format("%2.f", slider_Thrust.getValue()));
-        if(pressed) thread.stop();
-        else thread.start();
+
+        if(pressed){
+            thread.stop();
+        }
+        else {
+
+         thread = new Threads();
+
+         for(Observer o:observers){
+
+             if(o instanceof Integrator) o = new Integrator(rocket,step);
+
+             thread.addObserver(o);
+         }
+         thread.start();
+
+
+        }
 
         pressed = !pressed;
     }

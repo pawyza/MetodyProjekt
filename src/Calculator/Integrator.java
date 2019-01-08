@@ -2,6 +2,8 @@ package Calculator;
 
 import Interfaces.Observer;
 import Model.Rocket;
+import sample.RocketCrashedException;
+
 
 public class Integrator implements Observer {
 
@@ -9,7 +11,6 @@ public class Integrator implements Observer {
     private final double gravity = 1.63;
     private final double k = 636;
     private double dt; // step
-
     private Rocket rocket;
     private double thrust;
 
@@ -26,32 +27,33 @@ public class Integrator implements Observer {
      * @param thrust Thrust of engine
      * @return Position of rocket after step time
      */
-    public void integrate(Rocket rocket, double thrust) {
+    public void integrate(Rocket rocket, double thrust) throws RocketCrashedException {
 
-        this.thrust = thrust;
+            this.thrust = thrust;
 
-        double massNext;
-        double heightNext;
-        double velocityNext;
+            double massNext;
+            double heightNext;
+            double velocityNext;
 
-        heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
-        velocityNext = rocket.getVelocity() + (-gravity - k * (thrust / rocket.getMass()) * dt);
-        massNext = rocket.getMass() + thrust * dt;
+            heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
+            velocityNext = rocket.getVelocity() + (-gravity - k * (thrust / rocket.getMass()) * dt);
+            massNext = rocket.getMass() + thrust * dt;
 
-        rocket = new Rocket(velocityNext, massNext, heightNext);
+            rocket = new Rocket(velocityNext, massNext, heightNext);
 
-        this.rocket = rocket;
-
-        System.out.printf("Lot 9/11   H: %2f  V %2f, M %2f \n", heightNext, velocityNext, massNext);
-
-
+            this.rocket = rocket;
+        if (!crashed()) {
+            System.out.printf("Lot 9/11   H: %2f  V %2f, M %2f \n", heightNext, velocityNext, massNext);
+        } else throw new RocketCrashedException();
     }
 
-    private boolean crashed(){
-        if(rocket.getyPosition() < 0 ) {
+    private boolean crashed() {
+        if (rocket.getyPosition() < 0) {
             return true;
+        } else {
+            return false;
+
         }
-        else return false;
     }
 
     public double getThrust() {
@@ -63,9 +65,7 @@ public class Integrator implements Observer {
     }
 
     @Override
-    public void update() {
-        if(!crashed()) {
-            integrate(rocket, thrust);
-        }else System.out.println("WYLADOWAL");
+    public void update() throws RocketCrashedException {
+        integrate(rocket, thrust);
     }
 }

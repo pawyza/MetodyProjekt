@@ -2,13 +2,11 @@ package Calculator;
 
 import Interfaces.Observable;
 import Interfaces.Observer;
+import sample.RocketCrashedException;
 
 import java.util.ArrayList;
 
 public class Threads implements Runnable, Observable {
-
-    //temp
-
 
     private volatile ArrayList<Observer> observers = new ArrayList<>();
     private Thread thread;
@@ -19,7 +17,6 @@ public class Threads implements Runnable, Observable {
 
 
     }
-
 
     /**
      * Stop thread
@@ -51,17 +48,19 @@ public class Threads implements Runnable, Observable {
         // update parametrów
         running = true;
 
-            while (running) {
-                try {
+        while (running) {
+            try {
 
-                    updateObservers();
-                    Thread.sleep(500);
+                updateObservers();
+                Thread.sleep(500);
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } catch (InterruptedException e) {
+                stop();
+                e.printStackTrace();
 
             }
+
+        }
 
     }
 
@@ -81,7 +80,11 @@ public class Threads implements Runnable, Observable {
     public void updateObservers() {
 
         for (Observer o : observers) {
-            o.update();
+            try {
+                o.update();
+            } catch (RocketCrashedException e) {
+                stop();
+            }
         }
     }
 }
