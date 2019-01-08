@@ -2,37 +2,39 @@ package Model;
 
 public class Rocket {
 
-    private float height;
-    private float mass;
-    private float yPosition; // height
+    private double velocity;
+    private double mass;
+    private double yPosition; // velocity
 
-    public Rocket(float height, float mass, float yPosition) {
-        this.height = height;
+    public Rocket(double velocity, double mass, double yPosition) {
+        this.velocity = velocity;
         this.mass = mass;
         this.yPosition = yPosition;
     }
 
-    public float getHeight() {
-        return height;
+    public double getVelocity() {
+        return velocity;
     }
 
-    public void setHeight(float height) {
-        this.height = height;
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
     }
 
-    public float getMass() {
+    public double getMass() {
         return mass;
     }
 
-    public void setMass(float mass) {
+    public void setMass(double mass) {
         this.mass = mass;
     }
 
-    public float getyPosition() {
+    public double getyPosition() {
         return yPosition;
     }
 
-    public void setyPosition(float yPosition) {
+    public void setyPosition(double yPosition) {
         this.yPosition = yPosition;
     }
+
+
 }

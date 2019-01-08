@@ -1,15 +1,77 @@
 package sample;
 
+import Calculator.Integrator;
+import Calculator.Threads;
+import Interfaces.Observer;
+import Model.Rocket;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  *
  */
-public class Controller {
+public class Controller implements Initializable {
+
+
+
+    /**
+     *
+     * Initialize parameters
+     *
+     *
+     */
+
+
+    private final double startVelocity = -150;
+    private final double startHeight = 50000;
+    private final double startMass = 2730.14;
+    private final double step = 1;
+
+
+    private Threads thread;
+    private  Integrator integrator;
+    private Rocket rocket;
+
+    public Controller() {
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+// initialize
+        thread = new Threads();
+        rocket = new Rocket(startVelocity,startHeight,startMass);
+        integrator = new Integrator(rocket,step);
+
+// add observers to list
+        thread.addObserver(integrator);
+
+
+
+
+
+
+    }
+
+
+    @FXML
+    private Text txtSliderValue;
+
+    @FXML
+    private Slider slider_Thrust;
+
 
     /**
      * Pole tekstowe wyswietlajace informacje o wysokosci nad ziemia podana w metrach.
@@ -58,9 +120,24 @@ public class Controller {
      * Metoda ktorej celem jest zmiana stanu txtState
      * @param event powstajacy w wypadku nacisniecia przycisku bynChangeState
      */
+
+
+
+    boolean pressed = false;
     @FXML
     void changeState(ActionEvent event) {
+//        txtSliderValue.textProperty().bind(Bindings.format("%2.f", slider_Thrust.getValue()));
+        if(pressed) thread.stop();
+        else thread.start();
+
+        pressed = !pressed;
+    }
+
+
+    @FXML
+    void sliderOnSlide(ActionEvent event){
 
     }
+
 
 }

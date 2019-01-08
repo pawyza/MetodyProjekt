@@ -1,35 +1,34 @@
 package Calculator;
 
+import Interfaces.Observable;
 import Interfaces.Observer;
-import Model.Rocket;
 
 import java.util.ArrayList;
 
-public class Threads implements Runnable, Observer {
+public class Threads implements Runnable, Observable {
 
     //temp
-    private Rocket rocket;
-    private ArrayList<Rocket> rocketArrayList = new ArrayList<>();
 
 
+    private volatile ArrayList<Observer> observers = new ArrayList<>();
     private Thread thread;
     private volatile boolean running = false;
-    private boolean suspended = false;
 
 
     public Threads() {
+
+
     }
 
 
     /**
      * Stop thread
      */
-    public void stop() {
 
+    public void stop() {
         thread.interrupt();
         running = false;
         System.out.println("Thread stopped");
-
 
     }
 
@@ -50,27 +49,42 @@ public class Threads implements Runnable, Observer {
     @Override
     public void run() {
         // update parametrów
-        while (running) {
-            // calculate velocity,mass,position
+        running = true;
 
-         //   integrate;
+            while (running) {
+                try {
+
+                    updateObservers();
+                    Thread.sleep(500);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+    }
 
 
-
-
-
-            update(rocket);
-
-        }
-
-
+    @Override
+    public void addObserver(Observer observer) {
+        if (!observers.contains(observer))
+            observers.add(observer);
     }
 
     @Override
-    // obliczanie parametrow
-    public void update(Rocket rocket) {
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
 
-        rocketArrayList.add(rocket);
+    @Override
+    public void updateObservers() {
 
+        for (Observer o : observers) {
+            o.update();
+        }
     }
 }
+
+
+
