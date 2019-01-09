@@ -4,7 +4,6 @@ import Calculator.Integrator;
 import Calculator.Threads;
 import Interfaces.Observer;
 import Model.Rocket;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,7 +41,6 @@ public class Controller implements Initializable {
     private Threads thread;
     private  Integrator integrator;
     private Rocket rocket;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -148,9 +146,13 @@ public class Controller implements Initializable {
 
 
     @FXML
-    void sliderOnSlide(ActionEvent event){
+    void sliderOnSlide(ActionEvent event) throws RocketCrashedException {
+
+        txtSliderValue.textProperty().bind(slider_Thrust.valueProperty().asString());
+        integrator.integrate(rocket,slider_Thrust.getValue());
 
     }
+
 
 
 }
