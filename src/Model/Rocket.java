@@ -1,8 +1,14 @@
 package Model;
 
 import Enum.RocketParametersType;
+import Exceptions.OutOfFuelException;
+import Exceptions.RocketCrashedException;
+import Interfaces.Observable;
+import Interfaces.Observer;
 
-public class Rocket {
+import java.util.ArrayList;
+
+public class Rocket{
 
     private double velocity;
     private double mass;

@@ -2,15 +2,20 @@ package Model;
 
 import Calculator.Integrator;
 import Enum.RocketParametersType;
+import Exceptions.OutOfFuelException;
+import Exceptions.RocketCrashedException;
+import Interfaces.Observable;
 import Interfaces.Observer;
 
 import javafx.application.Platform;
 import javafx.scene.text.Text;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
 public class RocketParameters implements Observer{
+
     private Integrator integrator;
     private Text text;
     private RocketParametersType rocketParametersType;
@@ -32,4 +37,6 @@ public class RocketParameters implements Observer{
             text.setText(String.valueOf(df.format(integrator.getRocket().getData(rocketParametersType))));
         });
     }
+
+
 }

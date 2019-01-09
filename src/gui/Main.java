@@ -1,5 +1,6 @@
 package gui;
-// TODO: 09.01.2019 SLIDER -> WARTOSC PO WYRZUCENIU OUTOFFUEL MA BYC 0
+
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -38,7 +38,6 @@ public class Integrator implements Observer {
         if (noFuel()) {
             this.thrust = new Thrust(0);
 
-
         } else
             this.thrust = thrust;
         heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
@@ -50,6 +49,7 @@ public class Integrator implements Observer {
 
         if (!crashed()) {
             this.rocket = rocket;
+
 
             if (noFuel() && thrust.getThrust() != 0) {
                 this.rocket = new Rocket(velocityNext, 1000, heightNext);
@@ -98,7 +98,12 @@ public class Integrator implements Observer {
 
     @Override
     public void update() throws RocketCrashedException, OutOfFuelException {
-        integrate(rocket, getThrust());
+        try {
+            integrate(rocket, getThrust());
+        }catch ( OutOfFuelException e ){
+           thrust.getText().setVisible(false);
+
+        }
     }
 
 
