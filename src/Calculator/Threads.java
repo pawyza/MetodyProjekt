@@ -1,8 +1,10 @@
 package Calculator;
 
+import Exceptions.OutOfFuelException;
 import Interfaces.Observable;
 import Interfaces.Observer;
-import sample.RocketCrashedException;
+import Exceptions.RocketCrashedException;
+import Observers.Thrust;
 
 import java.util.ArrayList;
 
@@ -48,19 +50,19 @@ public class Threads implements Runnable, Observable {
         // update parametrów
         running = true;
 
-        while (running) {
-            try {
+            while (running) {
+                try {
 
-                updateObservers();
-                Thread.sleep(500);
+                    updateObservers();
+                    Thread.sleep(500);
 
-            } catch (InterruptedException e) {
-                stop();
-                e.printStackTrace();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    e.printStackTrace();
+
+                }
 
             }
-
-        }
 
     }
 
@@ -77,13 +79,15 @@ public class Threads implements Runnable, Observable {
     }
 
     @Override
-    public void updateObservers() {
+    public void updateObservers(){
 
         for (Observer o : observers) {
             try {
                 o.update();
             } catch (RocketCrashedException e) {
                 stop();
+            } catch (OutOfFuelException e) {
+
             }
         }
     }

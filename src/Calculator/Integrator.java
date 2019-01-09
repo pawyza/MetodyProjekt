@@ -1,18 +1,25 @@
 package Calculator;
 
+import Exceptions.OutOfFuelException;
+import Exceptions.RocketCrashedException;
 import Interfaces.Observer;
 import Model.Rocket;
-import sample.RocketCrashedException;
-
+import Observers.Thrust;
+import javafx.scene.text.Text;
 
 public class Integrator implements Observer {
+
+    private static Rocket rocket;
+    private static Thrust thrust;
 
 
     private final double gravity = 1.63;
     private final double k = 636;
-    private double dt; // step
-    private Rocket rocket;
-    private double thrust;
+    private double dt;
+
+    private double massNext;
+    private double heightNext;
+    private double velocityNext;
 
     public Integrator(Rocket rocket, double dt) {
         this.rocket = rocket;
@@ -27,45 +34,73 @@ public class Integrator implements Observer {
      * @param thrust Thrust of engine
      * @return Position of rocket after step time
      */
-    public void integrate(Rocket rocket, double thrust) throws RocketCrashedException {
+    public Rocket integrate(Rocket rocket, Thrust thrust) throws RocketCrashedException, OutOfFuelException {
+        if (noFuel()) {
+            this.thrust = new Thrust(0);
 
+
+        } else
             this.thrust = thrust;
+        heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
+        velocityNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() / rocket.getMass()) * dt);
+        massNext = rocket.getMass() + thrust.getThrust() * dt;
 
-            double massNext;
-            double heightNext;
-            double velocityNext;
+        rocket = new Rocket(velocityNext, massNext, heightNext);
+        System.out.printf("Lot 9/11 H: %.2f  V %.2f, M %.2f TH %.2f\n", heightNext, velocityNext, massNext, thrust.getThrust());
 
-            heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
-            velocityNext = rocket.getVelocity() + (-gravity - k * (thrust / rocket.getMass()) * dt);
-            massNext = rocket.getMass() + thrust * dt;
-
-            rocket = new Rocket(velocityNext, massNext, heightNext);
-
-            this.rocket = rocket;
         if (!crashed()) {
-            System.out.printf("Lot 9/11   H: %2f  V %2f, M %2f \n", heightNext, velocityNext, massNext);
-        } else throw new RocketCrashedException();
+            this.rocket = rocket;
+
+            if (noFuel() && thrust.getThrust() != 0) {
+                this.rocket = new Rocket(velocityNext, 1000, heightNext);
+
+                throw new OutOfFuelException();
+            }
+            return rocket;
+
+        } else {
+            this.rocket = new Rocket(0, massNext, 0);
+            throw new RocketCrashedException();
+        }
     }
+
 
     private boolean crashed() {
         if (rocket.getyPosition() < 0) {
             return true;
-        } else {
+        } else if (heightNext < 0) {
+            return true;
+        } else
             return false;
 
-        }
     }
 
-    public double getThrust() {
+    private boolean noFuel() {
+        if (rocket.getMass() <= 1000) {
+            return true;
+        } else return false;
+    }
+
+
+    public static Rocket getRocket() {
+
+        return rocket;
+    }
+
+    public Thrust getThrust() {
+
         return thrust;
     }
 
-    public void setThrust(double thrust) {
+    public void setThrust(Thrust thrust) {
         this.thrust = thrust;
     }
 
     @Override
-    public void update() throws RocketCrashedException {
-        integrate(rocket, thrust);
+    public void update() throws RocketCrashedException, OutOfFuelException {
+        integrate(rocket, getThrust());
     }
+
+
 }
+

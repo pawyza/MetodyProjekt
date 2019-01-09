@@ -1,7 +1,7 @@
 package Interfaces;
 
-import Model.Rocket;
-import sample.RocketCrashedException;
+
+import Exceptions.RocketCrashedException;
 
 public interface Observable {
 

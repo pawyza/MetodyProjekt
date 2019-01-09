@@ -1,4 +1,4 @@
-package gui;
+package Exceptions;
 
 public class RocketCrashedException extends Exception {
     public RocketCrashedException() {

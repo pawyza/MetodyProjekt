@@ -1,18 +1,28 @@
 package Model;
 
-import Interfaces.Observer;
-import sample.RocketCrashedException;
+import Enum.RocketParametersType;
 
-public class Rocket{
+public class Rocket {
 
     private double velocity;
     private double mass;
     private double yPosition; // velocity
-
+    private double thrust;
     public Rocket(double velocity, double mass, double yPosition) {
+
         this.velocity = velocity;
         this.mass = mass;
         this.yPosition = yPosition;
+
+    }
+
+    public double getThrust() {
+
+        return thrust;
+    }
+
+    public void setThrust(double thrust) {
+        this.thrust = thrust;
     }
 
     public double getVelocity() {
@@ -37,6 +47,20 @@ public class Rocket{
 
     public void setyPosition(double yPosition) {
         this.yPosition = yPosition;
+    }
+
+    public double getData(RocketParametersType type) {
+        switch (type) {
+            case HEIGHT:
+                return getyPosition();
+            case MASS:
+                return getMass();
+            case VELOCITY:
+                return getVelocity();
+
+            default:
+                return 0;
+        }
     }
 
 

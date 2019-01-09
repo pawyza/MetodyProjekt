@@ -1,8 +1,9 @@
 package Interfaces;
 
-
-import sample.RocketCrashedException;
+import Exceptions.OutOfFuelException;
+import Exceptions.RocketCrashedException;
 
 public interface Observer {
-    void update() throws RocketCrashedException;
+    void update() throws RocketCrashedException, OutOfFuelException;
+
 }
