@@ -35,7 +35,7 @@ public class Controller implements Initializable {
 
     private final double startVelocity = -150;
     private final double startHeight = 50000;
-    private final double startMass = 1500.14;
+    private final double startMass = 1200.14;
     private final double step = 0.1;
 
 
@@ -141,10 +141,11 @@ public class Controller implements Initializable {
 
         if (pressed) {
             thread.stop();
+
         } else {
 
             thread = new Threads();
-
+            txtState.setText("Running");
             for (Observer o : observers) {
 
                 if (o instanceof Integrator) o = new Integrator(rocket, step);
