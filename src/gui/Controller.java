@@ -7,11 +7,13 @@ import Exceptions.RocketCrashedException;
 import Interfaces.Observer;
 import Model.Rocket;
 import Model.RocketParameters;
+import Observers.GeneralDraw;
 import Observers.Thrust;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
@@ -33,7 +35,7 @@ public class Controller implements Initializable {
      */
     private ArrayList<Observer> observers = new ArrayList<>();
 
-    private final double startVelocity = -150;
+    private final double startVelocity = -1500;
     private final double startHeight = 50000;
     private final double startMass = 1200.14;
     private final double step = 0.1;
@@ -46,6 +48,7 @@ public class Controller implements Initializable {
     private RocketParameters mass;
     private RocketParameters velocity;
     private Thrust thrust;
+    private GeneralDraw draw;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,6 +58,8 @@ public class Controller implements Initializable {
         thread = new Threads();
         rocket = new Rocket(startVelocity, startMass, startHeight);
         integrator = new Integrator(rocket, step);
+        draw = new GeneralDraw(chart_Phase,integrator);
+
 
         height = new RocketParameters(RocketParametersType.HEIGHT, txtHeight, integrator);
         mass = new RocketParameters(RocketParametersType.MASS, txtFuelAmount, integrator);
@@ -70,10 +75,11 @@ public class Controller implements Initializable {
         observers.add(mass);
         observers.add(velocity);
         observers.add(thrust);
-
+        observers.add(draw);
 
     }
-
+    @FXML
+    private ScatterChart<Number,Number> chart_Phase;
     @FXML
     private Polygon polygon;
 
@@ -149,7 +155,9 @@ public class Controller implements Initializable {
             for (Observer o : observers) {
 
                 if (o instanceof Integrator) o = new Integrator(rocket, step);
+
                 thread.addObserver(o);
+
 
 
             }
