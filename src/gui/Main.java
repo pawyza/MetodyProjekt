@@ -1,4 +1,4 @@
-package sample;
+package gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,11 +8,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+   public static Stage stage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        stage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
         primaryStage.setTitle("Moon Landing Simulator");
-        primaryStage.setScene(new Scene(root, 400, 600));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
     }
 

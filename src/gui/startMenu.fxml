@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #151d2d;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.startMenuController">
+   <children>
+      <VBox alignment="CENTER" layoutX="161.0" prefHeight="400.0" prefWidth="278.0" spacing="40.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onClassicClick" prefHeight="50.0" prefWidth="215.0" style="-fx-background-color: c5d1eb;" text="Tryb klasyczny">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onExpandedClick" prefHeight="50.0" prefWidth="215.0" style="-fx-background-color: #c5d1eb;" text="Tryb rozszerzony">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onScoreClick" prefHeight="50.0" prefWidth="215.0" style="-fx-background-color: #c5d1eb;" text="Tabela wyników">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onSettingsClick" prefHeight="50.0" prefWidth="215.0" style="-fx-background-color: #c5d1eb;" text="Ustawienia">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</Pane>
