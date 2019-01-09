@@ -1,4 +1,4 @@
-package sample;
+package gui;
 
 import Calculator.Integrator;
 import Calculator.Threads;
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  *
  */
-public class Controller implements Initializable {
+public class classicController implements Initializable {
 
 
 
@@ -31,17 +31,20 @@ public class Controller implements Initializable {
      *
      */
 
-    private ArrayList<Observer> observers = new ArrayList<>();
 
     private final double startVelocity = -150;
-    private final double startHeight = 200;
+    private final double startHeight = 50000;
     private final double startMass = 2730.14;
-    private final double step = 0.1;
+    private final double step = 1;
 
 
     private Threads thread;
     private  Integrator integrator;
     private Rocket rocket;
+
+    public classicController() {
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,11 +52,11 @@ public class Controller implements Initializable {
 
 // initialize
         thread = new Threads();
-        rocket = new Rocket(startVelocity,startMass,startHeight);
+        rocket = new Rocket(startVelocity,startHeight,startMass);
         integrator = new Integrator(rocket,step);
 
 // add observers to list
-        observers.add(integrator);
+        thread.addObserver(integrator);
 
 
 
@@ -121,27 +124,11 @@ public class Controller implements Initializable {
 
 
     boolean pressed = false;
-
     @FXML
     void changeState(ActionEvent event) {
-
-        if(pressed){
-            thread.stop();
-        }
-        else {
-
-         thread = new Threads();
-
-         for(Observer o:observers){
-
-             if(o instanceof Integrator) o = new Integrator(rocket,step);
-
-             thread.addObserver(o);
-         }
-         thread.start();
-
-
-        }
+//        txtSliderValue.textProperty().bind(Bindings.format("%2.f", slider_Thrust.getValue()));
+        if(pressed) thread.stop();
+        else thread.start();
 
         pressed = !pressed;
     }
