@@ -15,6 +15,9 @@ public class ClassicGameManager extends GameManager implements Observer {
     private double mapPaneWidth;
     private double mapPaneHeight;
 
+    //map background
+    private Color bColor = Color.valueOf("#5A6784");
+
     //map ground settings
     private Color gColor = Color.valueOf("#1F232D");
     private double mapGroundHeight = 15;
@@ -55,6 +58,6 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     @Override
     public void update() {
-
+        mapRocket.setFill(bColor);
     }
 }

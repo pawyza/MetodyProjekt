@@ -11,14 +11,13 @@ import java.util.ArrayList;
 
 public class Threads implements Runnable, Observable {
 
-    private volatile ArrayList<Observer> observersNormal = new ArrayList<>();
-    private volatile ArrayList<Observer> observersGraphic = new ArrayList<>();
+    private volatile ArrayList<Observer> observers = new ArrayList<>();
     private Thread thread;
     private volatile boolean running = false;
 
-    private int actualTime;
-    private int refreshTime = 20;
-    private int integrationTime = 500;
+    private int actualTime = 0;
+    private int refreshTime = 50;
+    private int integrateTime = 500;
 
     public Threads() {
 
@@ -57,10 +56,11 @@ public class Threads implements Runnable, Observable {
 
             while (running) {
                 try {
-
+                    if(actualTime == integrateTime)
+                        actualTime = 0;
+                    actualTime += refreshTime;
                     updateObservers();
                     Thread.sleep(refreshTime);
-
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     e.printStackTrace();
@@ -71,55 +71,33 @@ public class Threads implements Runnable, Observable {
 
     }
 
-
     @Override
-    public void addNormalObserver(Observer observer) {
-        if (!observersNormal.contains(observer))
-            observersNormal.add(observer);
+    public void addObserver(Observer observer) {
+        if (!observers.contains(observer))
+            observers.add(observer);
     }
 
     @Override
-    public void removeNormalObserver(Observer observer) {
-        observersNormal.remove(observer);
-    }
-
-    @Override
-    public void addGraphicObserver(Observer observer) {
-        if (!observersGraphic.contains(observer))
-            observersGraphic.add(observer);
-    }
-
-    @Override
-    public void removeGraphicObserver(Observer observer) {
-        observersGraphic.remove(observer);
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
     }
 
 
     @Override
     public void updateObservers(){
 
-        for (Observer o : observersGraphic) {
+        for (Observer o : observers) {
             try {
-                o.update();
+                if(o instanceof GameManager)
+                    o.update();
+                else if(integrateTime == actualTime)
+                    o.update();
             } catch (RocketCrashedException e) {
                 stop();
             } catch (OutOfFuelException e) {
 
             }
         }
-        if (integrationTime == actualTime){
-            for (Observer o : observersNormal) {
-                try {
-                    o.update();
-                } catch (RocketCrashedException e) {
-                    stop();
-                } catch (OutOfFuelException e) {
-
-                }
-            }
-            actualTime =0;
-        }
-        actualTime += refreshTime;
     }
 }
 
