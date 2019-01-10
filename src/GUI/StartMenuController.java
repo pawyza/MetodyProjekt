@@ -18,7 +18,7 @@ public class StartMenuController {
     void onClassicClick(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("classicMode.fxml"));
-            gui.Main.stage.setScene(new Scene(root));
+            GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -28,7 +28,7 @@ public class StartMenuController {
     void onExpandedClick(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("extendedMode.fxml"));
-            gui.Main.stage.setScene(new Scene(root));
+            GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -40,7 +40,7 @@ public class StartMenuController {
     void onScoreClick(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("scoreMenu.fxml"));
-            gui.Main.stage.setScene(new Scene(root));
+            GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -51,7 +51,7 @@ public class StartMenuController {
     void onSettingsClick(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("settingsMenu.fxml"));
-            gui.Main.stage.setScene(new Scene(root));
+            GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }

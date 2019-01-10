@@ -127,7 +127,7 @@ public class ExtendedModeController implements Initializable {
     void btnReturn_OnAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
-            gui.Main.stage.setScene(new Scene(root));
+            GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
