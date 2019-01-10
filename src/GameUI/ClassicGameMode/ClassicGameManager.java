@@ -1,11 +1,8 @@
 package GameUI.ClassicGameMode;
 
 import Calculator.Integrator;
-import Exceptions.OutOfFuelException;
-import Exceptions.RocketCrashedException;
 import GameUI.GameManager;
 import Interfaces.Observer;
-import Model.Rocket;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,8 +13,7 @@ public class ClassicGameManager extends GameManager implements Observer {
     private Pane mapDrawingPane;
     private double mapPaneWidth;
     private double mapPaneHeight;
-    private double totalHeigt;
-    private Integrator integrator;
+    private double totalHeight;
 
     //map background
     private Color bColor = Color.valueOf("#5A6784");
@@ -30,27 +26,29 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     //map rocket marker setting
     private Color rColor = Color.valueOf("#FCFCFC");
+    private double actualHeight;
     private double mapRocketSize = 9;
     private double mapRocketHorizontalPosition;
     private double mapRocketVerticalPosition;
     Rectangle mapRocket;
 
 
-    public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight, Integrator integrator) {
+    public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight) {
         super(gameDrawingPane);
         this.mapDrawingPane = mapDrawingPane;
         mapPaneHeight = mapDrawingPane.getPrefHeight();
         mapPaneWidth = mapDrawingPane.getPrefWidth();
-        mapGroundWidth = mapPaneWidth;
-        mapRocketHorizontalPosition = (mapPaneWidth / 2) - (mapRocketSize / 2);
-        mapRocketVerticalPosition = 30;
-        this.totalHeigt = totalHeight;
-        this.integrator = integrator;
+        this.totalHeight = totalHeight;
         setUpMapPane();
     }
 
     private void setUpMapPane() {
-        System.out.println(mapRocketHorizontalPosition);
+
+        mapGroundWidth = mapPaneWidth;
+        mapRocketHorizontalPosition = (mapPaneWidth / 2) - (mapRocketSize / 2);
+        mapRocketVerticalPosition = 30;
+        actualHeight = totalHeight;
+
         mapGround = new Rectangle(mapGroundWidth, mapGroundHeight, gColor);
         mapGround.setX(0);
         mapGround.setY(mapPaneHeight - mapGroundHeight);
@@ -60,10 +58,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         mapRocket.setY(mapRocketVerticalPosition);
         mapDrawingPane.getChildren().addAll(mapGround, mapRocket);
 
-        Rocket rocket = Integrator.getRocket();
-
-        meterToPixelRatio = totalHeigt / (mapRocketVerticalPosition + mapRocketSize);
+        meterToPixelRatio = totalHeight / ((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
         System.out.println(meterToPixelRatio);
+        System.out.println((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
     }
 
     private double meterToPixelRatio;
@@ -80,7 +77,21 @@ public class ClassicGameManager extends GameManager implements Observer {
     }
 
     private void moveMap() {
-        System.out.println(integrator.getRocket().getyPosition());
+        int pixels = (int) (Integrator.getRocket().getyPosition()/meterToPixelRatio);
+        mapRocket.setY(mapPaneHeight - pixels);
+        /*if(Integrator.getRocket().getyPosition()<(actualHeight-meterToPixelRatio)){
+        actualHeight = actualHeight-meterToPixelRatio;
+        double newTranslate = mapRocket.getTranslateY() + 1;
+        mapRocket.setTranslateY(newTranslate);
+            System.out.println("ruch w dol" + newTranslate);
+
+        }
+        else if(Integrator.getRocket().getyPosition()>(actualHeight+meterToPixelRatio)){
+            actualHeight = actualHeight+meterToPixelRatio;
+            double newTranslate = mapRocket.getTranslateY() - 1;
+            mapRocket.setTranslateY(newTranslate);
+            System.out.println("ruch w gore"+ newTranslate);
+        }*/
     }
 
     private void blink() {
