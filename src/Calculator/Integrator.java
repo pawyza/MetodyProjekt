@@ -5,7 +5,6 @@ import Exceptions.RocketCrashedException;
 import Interfaces.Observer;
 import Model.Rocket;
 import Observers.Thrust;
-import javafx.scene.text.Text;
 
 public class Integrator implements Observer {
 
@@ -35,20 +34,24 @@ public class Integrator implements Observer {
      * @return Position of rocket after step time
      */
     public Rocket integrate(Rocket rocket, Thrust thrust) throws RocketCrashedException, OutOfFuelException {
+
+        if(landed()){
+            System.out.println("Landed succesfully");
+            return new Rocket(0,0,0);
+        }
         if (noFuel()) {
             this.thrust = new Thrust(0);
+        } else this.thrust = thrust;
 
-        } else
-            this.thrust = thrust;
+
         heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
         velocityNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() / rocket.getMass()) * dt);
         massNext = rocket.getMass() + thrust.getThrust() * dt;
 
         rocket = new Rocket(velocityNext, massNext, heightNext);
         System.out.printf("Lot 9/11 H: %.2f  V %.2f, M %.2f TH %.2f\n", heightNext, velocityNext, massNext, thrust.getThrust());
-
+        this.rocket = rocket;
         if (!crashed()) {
-            this.rocket = rocket;
 
 
             if (noFuel() && thrust.getThrust() != 0) {
@@ -64,6 +67,10 @@ public class Integrator implements Observer {
         }
     }
 
+    private boolean landed() {
+        if ((rocket.getyPosition() <= 0) && rocket.getThrust() < 2) return true;
+        else return false;
+    }
 
     private boolean crashed() {
         if (rocket.getyPosition() < 0) {
@@ -97,11 +104,11 @@ public class Integrator implements Observer {
     }
 
     @Override
-    public void update() throws RocketCrashedException, OutOfFuelException {
+    public void update() throws RocketCrashedException {
         try {
             integrate(rocket, getThrust());
-        }catch ( OutOfFuelException e ){
-           thrust.getText().setVisible(false);
+        } catch (OutOfFuelException e) {
+            thrust.getText().setVisible(false);
 
         }
     }

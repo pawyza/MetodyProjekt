@@ -35,7 +35,8 @@ public class ClassicGameController implements Initializable {
     /**
      * Initialize parameters
      */
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private ArrayList<Observer> observersNormal = new ArrayList<>();
+    private ArrayList<Observer> observersGraphic = new ArrayList<>();
 
     private final double startVelocity = -1500;
     private final double startHeight = 50000;
@@ -76,13 +77,13 @@ public class ClassicGameController implements Initializable {
 
 // add observers to list
 
-        observers.add(integrator);
-        observers.add(height);
-        observers.add(mass);
-        observers.add(velocity);
-        observers.add(thrust);
-        observers.add(draw);
-        observers.add(classicGameManager);
+        observersNormal.add(integrator);
+        observersNormal.add(height);
+        observersNormal.add(mass);
+        observersNormal.add(velocity);
+        observersNormal.add(thrust);
+        observersNormal.add(draw);
+        observersGraphic.add(classicGameManager);
 
     }
     @FXML
@@ -163,13 +164,19 @@ public class ClassicGameController implements Initializable {
 
             thread = new Threads();
             txtState.setText("Running");
-            for (Observer o : observers) {
+            for (Observer o : observersNormal) {
 
                 if (o instanceof Integrator) o = new Integrator(rocket, step);
 
-                thread.addObserver(o);
+                thread.addNormalObserver(o);
 
             }
+            for (Observer o : observersGraphic) {
+
+                thread.addGraphicObserver(o);
+
+            }
+
 
             thread.start();
 
