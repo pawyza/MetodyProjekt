@@ -14,7 +14,7 @@ public class ClassicGameManager extends GameManager implements Observer {
     private double mapPaneWidth;
     private double mapPaneHeight;
     private double totalHeight;
-
+    Integrator integrator;
     //map background
     private Color bColor = Color.valueOf("#5A6784");
 
@@ -33,12 +33,13 @@ public class ClassicGameManager extends GameManager implements Observer {
     Rectangle mapRocket;
 
 
-    public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight) {
+    public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight, Integrator integrator) {
         super(gameDrawingPane);
         this.mapDrawingPane = mapDrawingPane;
         mapPaneHeight = mapDrawingPane.getPrefHeight();
         mapPaneWidth = mapDrawingPane.getPrefWidth();
         this.totalHeight = totalHeight;
+        this.integrator = integrator;
         setUpMapPane();
     }
 
@@ -74,24 +75,36 @@ public class ClassicGameManager extends GameManager implements Observer {
     public void update() {
         blink();
         moveMap();
+        checkRocketState();
     }
 
     private void moveMap() {
-        int pixels = (int) (Integrator.getRocket().getyPosition()/meterToPixelRatio);
-        mapRocket.setY(mapPaneHeight - pixels);
-        /*if(Integrator.getRocket().getyPosition()<(actualHeight-meterToPixelRatio)){
-        actualHeight = actualHeight-meterToPixelRatio;
-        double newTranslate = mapRocket.getTranslateY() + 1;
-        mapRocket.setTranslateY(newTranslate);
-            System.out.println("ruch w dol" + newTranslate);
+        int steps;
+        if(Integrator.getRocket().getyPosition()<(actualHeight-meterToPixelRatio)){
+            steps = (int)((Math.abs(actualHeight-Integrator.getRocket().getyPosition()))/meterToPixelRatio);
+            actualHeight = actualHeight-(meterToPixelRatio*steps);
+            double newTranslate = mapRocket.getTranslateY() + steps;
+            mapRocket.setTranslateY(newTranslate);
+            System.out.println("ruch w dol" + steps);
 
         }
         else if(Integrator.getRocket().getyPosition()>(actualHeight+meterToPixelRatio)){
-            actualHeight = actualHeight+meterToPixelRatio;
-            double newTranslate = mapRocket.getTranslateY() - 1;
+            steps = (int)((Math.abs(actualHeight-Integrator.getRocket().getyPosition()))/meterToPixelRatio);
+            actualHeight = actualHeight+(meterToPixelRatio*steps);
+            double newTranslate = mapRocket.getTranslateY() - steps;
             mapRocket.setTranslateY(newTranslate);
             System.out.println("ruch w gore"+ newTranslate);
-        }*/
+        }
+    }
+
+    private void checkRocketState() {
+        if (Integrator.getRocket().getyPosition() <= 0){
+            if(integrator.ifLandedSuccess)
+                mapRocket.setFill(Color.GREEN);
+            else{
+                mapRocket.setFill(Color.RED);
+            }
+        }
     }
 
     private void blink() {

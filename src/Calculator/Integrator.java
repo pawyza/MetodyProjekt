@@ -13,6 +13,7 @@ public class Integrator implements Observer {
     private static Thrust thrust;
     public Landed successRocket;
     public boolean ifLandedSuccess;
+
     private final double gravity = 1.63;
     private final double k = 636;
     private double dt;

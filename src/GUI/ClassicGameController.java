@@ -72,7 +72,7 @@ public class ClassicGameController implements Initializable {
 
         integrator.setThrust(thrust);
 
-        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane,startHeight);
+        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane,startHeight,integrator);
 
 // add observers to list
 
