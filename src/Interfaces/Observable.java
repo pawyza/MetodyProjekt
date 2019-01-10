@@ -5,8 +5,9 @@ import Exceptions.RocketCrashedException;
 
 public interface Observable {
 
-    void addObserver(Observer observer);
-    void removeObserver(Observer observer);
+    void addNormalObserver(Observer observer);
+    void addGraphicObserver(Observer observer);
+    void removeNormalObserver(Observer observer);
+    void removeGraphicObserver(Observer observer);
     void updateObservers() throws RocketCrashedException;
-
 }

@@ -1,6 +1,7 @@
 package Calculator;
 
 import Exceptions.OutOfFuelException;
+import GameUI.GameManager;
 import Interfaces.Observable;
 import Interfaces.Observer;
 import Exceptions.RocketCrashedException;
@@ -10,10 +11,14 @@ import java.util.ArrayList;
 
 public class Threads implements Runnable, Observable {
 
-    private volatile ArrayList<Observer> observers = new ArrayList<>();
+    private volatile ArrayList<Observer> observersNormal = new ArrayList<>();
+    private volatile ArrayList<Observer> observersGraphic = new ArrayList<>();
     private Thread thread;
     private volatile boolean running = false;
 
+    private int actualTime;
+    private int refreshTime = 20;
+    private int integrationTime = 500;
 
     public Threads() {
 
@@ -54,7 +59,7 @@ public class Threads implements Runnable, Observable {
                 try {
 
                     updateObservers();
-                    Thread.sleep(500);
+                    Thread.sleep(refreshTime);
 
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -68,20 +73,32 @@ public class Threads implements Runnable, Observable {
 
 
     @Override
-    public void addObserver(Observer observer) {
-        if (!observers.contains(observer))
-            observers.add(observer);
+    public void addNormalObserver(Observer observer) {
+        if (!observersNormal.contains(observer))
+            observersNormal.add(observer);
     }
 
     @Override
-    public void removeObserver(Observer observer) {
-        observers.remove(observer);
+    public void removeNormalObserver(Observer observer) {
+        observersNormal.remove(observer);
     }
+
+    @Override
+    public void addGraphicObserver(Observer observer) {
+        if (!observersGraphic.contains(observer))
+            observersGraphic.add(observer);
+    }
+
+    @Override
+    public void removeGraphicObserver(Observer observer) {
+        observersGraphic.remove(observer);
+    }
+
 
     @Override
     public void updateObservers(){
 
-        for (Observer o : observers) {
+        for (Observer o : observersGraphic) {
             try {
                 o.update();
             } catch (RocketCrashedException e) {
@@ -90,6 +107,19 @@ public class Threads implements Runnable, Observable {
 
             }
         }
+        if (integrationTime == actualTime){
+            for (Observer o : observersNormal) {
+                try {
+                    o.update();
+                } catch (RocketCrashedException e) {
+                    stop();
+                } catch (OutOfFuelException e) {
+
+                }
+            }
+            actualTime =0;
+        }
+        actualTime += refreshTime;
     }
 }
 

@@ -4,6 +4,7 @@ import Calculator.Integrator;
 import Calculator.Threads;
 import Enum.RocketParametersType;
 import Exceptions.RocketCrashedException;
+import GameUI.ClassicGameMode.ClassicGameManager;
 import Interfaces.Observer;
 import Model.Rocket;
 import Model.RocketParameters;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
@@ -33,13 +35,13 @@ public class ClassicGameController implements Initializable {
     /**
      * Initialize parameters
      */
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private ArrayList<Observer> observersNormal = new ArrayList<>();
+    private ArrayList<Observer> observersGraphic = new ArrayList<>();
 
     private final double startVelocity = -1500;
     private final double startHeight = 50000;
     private final double startMass = 1200.14;
     private final double step = 0.1;
-
 
     private Threads thread;
     private Integrator integrator;
@@ -49,6 +51,9 @@ public class ClassicGameController implements Initializable {
     private RocketParameters velocity;
     private Thrust thrust;
     private GeneralDraw draw;
+
+    private ClassicGameManager classicGameManager;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,20 +73,21 @@ public class ClassicGameController implements Initializable {
 
         integrator.setThrust(thrust);
 
+        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane);
+
 // add observers to list
 
-        observers.add(integrator);
-        observers.add(height);
-        observers.add(mass);
-        observers.add(velocity);
-        observers.add(thrust);
-        observers.add(draw);
+        observersNormal.add(integrator);
+        observersNormal.add(height);
+        observersNormal.add(mass);
+        observersNormal.add(velocity);
+        observersNormal.add(thrust);
+        observersNormal.add(draw);
+        observersGraphic.add(classicGameManager);
 
     }
     @FXML
     private ScatterChart<Number,Number> chart_Phase;
-    @FXML
-    private Polygon polygon;
 
     @FXML
     private Text txtSliderValue;
@@ -89,6 +95,12 @@ public class ClassicGameController implements Initializable {
     @FXML
     private Slider slider_Thrust;
 
+
+    /**
+     * Odpowiada za grafike obiektu rakiety w grze
+     */
+    @FXML
+    private ImageView rocketGameObject;
 
     /**
      * Pole tekstowe wyswietlajace informacje o wysokosci nad ziemia podana w metrach.
@@ -152,13 +164,16 @@ public class ClassicGameController implements Initializable {
 
             thread = new Threads();
             txtState.setText("Running");
-            for (Observer o : observers) {
+            for (Observer o : observersNormal) {
 
                 if (o instanceof Integrator) o = new Integrator(rocket, step);
 
-                thread.addObserver(o);
+                thread.addNormalObserver(o);
 
+            }
+            for (Observer o : observersGraphic) {
 
+                thread.addGraphicObserver(o);
 
             }
 
