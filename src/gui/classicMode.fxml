@@ -8,14 +8,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
    <children>
-      <Pane fx:id="gameDrawingPane" prefHeight="529.0" prefWidth="342.0" style="-fx-background-color: #C5D1EB;">
+      <Pane fx:id="gameDrawingPane" prefHeight="341.0" prefWidth="525.0" style="-fx-background-color: #C5D1EB;">
          <children>
             <VBox prefHeight="120.0" prefWidth="150.0">
                <children>
@@ -110,9 +109,8 @@
                   </HBox>
                </children>
             </VBox>
-            <Polygon fx:id="polygon" fill="DODGERBLUE" layoutX="173.0" layoutY="151.0" points="-25.600006103515625, 40.0, 20.000030517578125, 40.0, -1.600006103515625, -7.5999755859375" stroke="BLACK" strokeType="INSIDE" />
-            <Line endX="123.80001831054688" layoutX="171.0" layoutY="514.0" startX="-129.80001831054688" />
-            <ScatterChart fx:id="chart_Phase" layoutX="13.0" layoutY="240.0" legendVisible="false" prefHeight="274.0" prefWidth="310.0">
+            <Polygon fx:id="polygon" fill="DODGERBLUE" layoutX="265.0" layoutY="128.0" points="-25.600006103515625, 40.0, 20.000030517578125, 40.0, -1.600006103515625, -7.5999755859375" stroke="BLACK" strokeType="INSIDE" />
+            <ScatterChart fx:id="chart_Phase" layoutX="325.0" layoutY="186.0" legendVisible="false" prefHeight="148.0" prefWidth="200.0">
               <xAxis>
                 <NumberAxis label="Velocity" side="BOTTOM" />
               </xAxis>
@@ -120,26 +118,26 @@
                 <NumberAxis label="Height" side="LEFT" />
               </yAxis>
             </ScatterChart>
+            <HBox alignment="CENTER" layoutX="-5.0" layoutY="340.0" prefHeight="61.0" prefWidth="606.0" style="-fx-background-color: #91A7D6;">
+               <children>
+                  <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="48.0" prefWidth="153.0" style="-fx-background-color: #C5D1EB;" text="Pchnij drąga">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Slider fx:id="slider_Thrust" blockIncrement="1.65" max="0.0" min="-160.5" orientation="VERTICAL" />
+                  <Text fx:id="txtSliderValue" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
          </children>
       </Pane>
-      <Pane fx:id="mapDrawingPane" layoutX="342.0" prefHeight="529.0" prefWidth="60.0" style="-fx-background-color: #5A6784;" />
-      <HBox alignment="CENTER" layoutY="527.0" prefHeight="73.0" prefWidth="400.0" style="-fx-background-color: #91A7D6;">
-         <children>
-            <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="48.0" prefWidth="153.0" style="-fx-background-color: #C5D1EB;" text="Pchnij drąga">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Slider fx:id="slider_Thrust" blockIncrement="1.65" max="0.0" min="-160.5" orientation="VERTICAL" />
-            <Text fx:id="txtSliderValue" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Text>
-         </children>
-      </HBox>
+      <Pane fx:id="mapDrawingPane" layoutX="525.0" prefHeight="341.0" prefWidth="75.0" style="-fx-background-color: #5A6784;" />
    </children>
 </Pane>
