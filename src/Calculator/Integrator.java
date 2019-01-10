@@ -1,5 +1,6 @@
 package Calculator;
 
+import Model.Landed;
 import Exceptions.OutOfFuelException;
 import Exceptions.RocketCrashedException;
 import Interfaces.Observer;
@@ -10,8 +11,8 @@ public class Integrator implements Observer {
 
     private static Rocket rocket;
     private static Thrust thrust;
-
-
+    public Landed successRocket;
+    public boolean ifLandedSuccess;
     private final double gravity = 1.63;
     private final double k = 636;
     private double dt;
@@ -37,7 +38,9 @@ public class Integrator implements Observer {
 
         if(landed()){
             System.out.println("Landed succesfully");
-            return new Rocket(0,0,0);
+            successRocket = new Landed(this.rocket);
+            ifLandedSuccess = true;
+            return this.rocket;
         }
         if (noFuel()) {
             this.thrust = new Thrust(0);
@@ -45,10 +48,10 @@ public class Integrator implements Observer {
 
 
         heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
-        velocityNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() / rocket.getMass()) * dt);
+        velocityNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() / rocket.getMass())) * dt;
         massNext = rocket.getMass() + thrust.getThrust() * dt;
-
         rocket = new Rocket(velocityNext, massNext, heightNext);
+
         System.out.printf("Lot 9/11 H: %.2f  V %.2f, M %.2f TH %.2f\n", heightNext, velocityNext, massNext, thrust.getThrust());
         this.rocket = rocket;
         if (!crashed()) {
@@ -68,7 +71,7 @@ public class Integrator implements Observer {
     }
 
     private boolean landed() {
-        if ((rocket.getyPosition() <= 0) && rocket.getThrust() < 2) return true;
+        if ((rocket.getyPosition() <= 0) && rocket.getThrust() > -2) return true;
         else return false;
     }
 
@@ -101,6 +104,22 @@ public class Integrator implements Observer {
 
     public void setThrust(Thrust thrust) {
         this.thrust = thrust;
+    }
+
+    public Landed getSuccessRocket() {
+        return successRocket;
+    }
+
+    public void setSuccessRocket(Landed successRocket) {
+        this.successRocket = successRocket;
+    }
+
+    public boolean isIfLandedSuccess() {
+        return ifLandedSuccess;
+    }
+
+    public void setIfLandedSuccess(boolean ifLandedSuccess) {
+        this.ifLandedSuccess = ifLandedSuccess;
     }
 
     @Override

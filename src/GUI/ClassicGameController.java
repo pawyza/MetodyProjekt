@@ -37,10 +37,10 @@ public class ClassicGameController implements Initializable {
      */
     private ArrayList<Observer> observers = new ArrayList<>();
 
-    private final double startVelocity = -1500;
+    private final double startVelocity = -150;
     private final double startHeight = 50000;
-    private final double startMass = 1200.14;
-    private final double step = 0.1;
+    private final double startMass = 2730.14;
+    private final double step = 1;
 
     private Threads thread;
     private Integrator integrator;
@@ -158,7 +158,7 @@ public class ClassicGameController implements Initializable {
 
         if (pressed) {
             thread.stop();
-
+            draw.clearChart();
         } else {
 
             thread = new Threads();

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +29,7 @@ public class Main extends Application {
 Pamietajcie ze przez to ze pracujemy razem nad projektem warto robic na bierzaca dokumentacje dla innych.
 Skrot ulatwiajacy tworzenie javadoca ctrl+shift+a -> fix doc comment
 Jesli macie jakis problem przemyslnie czy komentarz potrzebny na etapie pisania piszcie go zwyklym komentarzem //
-Poki nie zrobimy bardzo estetycznego GUI mozemy dodawac kolorki i jakies pierdoly zeby utrzymac minimum estetyki, polecam uzywanie
+Poki nie zrobimy bardzo estetycznego gui mozemy dodawac kolorki i jakies pierdoly zeby utrzymac minimum estetyki, polecam uzywanie
 palety z tego linka(to paleta ktora uzywam): https://coolors.co/c5d1eb-91a7d6-5a6784-39445b-151d2d
 ogolnie polecam stronke bo tworzy paletki wedlug roznych teorii koloru (chodzi o stale odleglosci w odpowiednim ukladzie przestrzennym barw)
 oczywiscie do takiej paletki zawsze pasuje czysty czarny i bialy

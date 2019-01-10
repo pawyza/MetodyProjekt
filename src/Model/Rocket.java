@@ -1,25 +1,41 @@
 package Model;
 
 import Enum.RocketParametersType;
-import Exceptions.OutOfFuelException;
-import Exceptions.RocketCrashedException;
-import Interfaces.Observable;
-import Interfaces.Observer;
-
-import java.util.ArrayList;
 
 public class Rocket{
 
     private double velocity;
+    private double velocityX;
     private double mass;
-    private double yPosition; // velocity
+    private double yPosition; //height
+    private double xPosition;
+    private double angle;
     private double thrust;
+
     public Rocket(double velocity, double mass, double yPosition) {
 
         this.velocity = velocity;
         this.mass = mass;
         this.yPosition = yPosition;
 
+    }
+
+    public Rocket(double velocity, double velocityX, double mass, double yPosition, double xPosition, double angle) {
+        this.velocity = velocity;
+        this.velocityX = velocityX;
+        this.mass = mass;
+        this.yPosition = yPosition;
+        this.xPosition = xPosition;
+
+        this.angle = angle;
+    }
+
+    public double getxPosition() {
+        return xPosition;
+    }
+
+    public void setxPosition(double xPosition) {
+        this.xPosition = xPosition;
     }
 
     public double getThrust() {
@@ -55,6 +71,22 @@ public class Rocket{
         this.yPosition = yPosition;
     }
 
+    public double getVelocityX() {
+        return velocityX;
+    }
+
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
     public double getData(RocketParametersType type) {
         switch (type) {
             case HEIGHT:
@@ -63,11 +95,25 @@ public class Rocket{
                 return getMass();
             case VELOCITY:
                 return getVelocity();
-
+            case XPOSITION:
+                return getxPosition();
+            case XVELOCITY:
+                return getVelocityX();
             default:
                 return 0;
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Rocket{" +
+                "velocity=" + velocity +
+                ", velocityX=" + velocityX +
+                ", mass=" + mass +
+                ", yPosition=" + yPosition +
+                ", xPosition=" + xPosition +
+                ", angle=" + angle +
+                ", thrust=" + thrust +
+                '}';
+    }
 }

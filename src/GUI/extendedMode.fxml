@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtendedModeController">
    <children>
-      <Button fx:id="btnPchnijDraga" layoutX="274.0" layoutY="175.0" mnemonicParsing="false" text="Pchnij drąga" />
+      <Button fx:id="btnStart" layoutX="234.0" layoutY="328.0" mnemonicParsing="false" onAction="#btnStart_OnAction" text="Pchnij drąga" />
+      <Button fx:id="btnReturn" layoutX="514.0" layoutY="328.0" mnemonicParsing="false" onAction="#btnReturn_OnAction" text="Return" />
+      <HBox layoutX="26.0" layoutY="57.0" prefHeight="210.0" prefWidth="169.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position X" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position Y" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity X" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity Y" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Angle" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thrust" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Text fx:id="txt_PositionX" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_PositionY" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_VelocityX" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_VelocityY" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_Mass" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_ThrustX" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_ThrustY" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <ScatterChart fx:id="chart_RocketPosition" layoutX="215.0" layoutY="26.0" prefHeight="272.0" prefWidth="341.0">
+        <xAxis>
+          <NumberAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </ScatterChart>
+      <Slider fx:id="slider_Thrust" blockIncrement="1.65" layoutX="26.0" layoutY="228.0" max="0.0" min="-160.5" orientation="VERTICAL" />
+      <Slider fx:id="slider_Angle" blockIncrement="5.0" layoutX="75.0" layoutY="284.0" max="90.0" min="-90.0" />
    </children>
 </Pane>

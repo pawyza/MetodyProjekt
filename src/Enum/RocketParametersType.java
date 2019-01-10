@@ -1,5 +1,5 @@
 package Enum;
 
 public enum RocketParametersType {
-    HEIGHT,MASS,VELOCITY
+    HEIGHT,MASS,VELOCITY,XPOSITION,XVELOCITY
 }
