@@ -1,10 +1,10 @@
-package gui;
+package GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
-public class scoreMenuController {
+public class ScoreMenuController {
 
     @FXML
     private Pane mainPane;

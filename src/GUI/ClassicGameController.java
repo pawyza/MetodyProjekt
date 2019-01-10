@@ -1,4 +1,4 @@
-package gui;
+package GUI;
 
 import Calculator.Integrator;
 import Calculator.Threads;
@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 /**
  *
  */
-public class Controller implements Initializable {
+public class ClassicGameController implements Initializable {
 
 
     /**

@@ -1,9 +1,9 @@
-package gui;
+package GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
-public class settingsMenuController {
+public class SettingsMenuController {
 
     @FXML
     private VBox settings;

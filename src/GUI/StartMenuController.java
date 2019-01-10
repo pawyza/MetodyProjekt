@@ -1,4 +1,4 @@
-package gui;
+package GUI;
 
 
 import javafx.event.ActionEvent;
@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class startMenuController {
+public class StartMenuController {
 
     @FXML
     private Pane mainPane;
