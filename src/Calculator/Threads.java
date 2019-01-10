@@ -1,11 +1,11 @@
 package Calculator;
 
 import Exceptions.OutOfFuelException;
+import GameUI.ClassicGameMode.ClassicGameManager;
 import GameUI.GameManager;
 import Interfaces.Observable;
 import Interfaces.Observer;
 import Exceptions.RocketCrashedException;
-import Observers.Thrust;
 
 import java.util.ArrayList;
 

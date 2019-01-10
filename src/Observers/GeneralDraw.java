@@ -18,7 +18,9 @@ public class GeneralDraw implements Observer {
         data = new XYChart.Series();
         chart.getData().addAll(data);
     }
-
+    public void clearChart(){
+        data.getData().clear();
+    }
 
     @Override
     public void update() {
