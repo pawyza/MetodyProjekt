@@ -36,14 +36,14 @@ public class HighscoreManager  implements Observer {
         ScoreComparator comparator = new ScoreComparator();
         Collections.sort(scores, comparator);
     }
-    public void addScore(String name,double time,double thrust, double score ) {
+    public void addScore(String name,double time,double thrust) {
         loadScoreFile();
         //potrzebuje ustawić time na czas po wylądowaniu( nie mam pojęcia jak)
         //chciałbym ustawić też nazwe użytkownika po wygraniu żeby miał możliwość wpisania też nie mam pojęcia jak XDD
         //Jestem młotem XD
 
        // scores.add(new Score(name,time,integrator.getSuccessRocket().getRocket().getThrust(),score));
-        scores.add(new Score(name,time,thrust,score));
+        scores.add(new Score(name,time,thrust));
         updateScoreFile();
     }
     public void loadScoreFile() {

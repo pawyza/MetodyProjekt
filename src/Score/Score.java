@@ -11,17 +11,14 @@ public class Score  implements Serializable {
 
 
 
-    public Score(String name,double time,double thrust,double score ) {
-        this.score = score;
+    public Score(String name,double time,double thrust) {
+        this.score = thrust+time;
         this.name = name;
         this.thrust = thrust;
         this.time = time;
     }
 
-    public double getScore() {
-        score=thrust+time;
-        return score;
-    }
+    public double getScore() { return score; }
 
     public String getName() {
         return name;

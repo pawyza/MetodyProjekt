@@ -35,7 +35,7 @@ public class StartMenuController {
     }
 
 
-
+    //TODO DAVID: tutaj musisz zrobić odczyt pliku .txt w ktorym sa przechowywane wyniki. I zrobic z nich observable list obiektow typu score ktore wrzucasz potem do tej tabeli
     @FXML
     void onScoreClick(ActionEvent event) {
         try {

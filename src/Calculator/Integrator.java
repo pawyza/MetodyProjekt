@@ -12,11 +12,13 @@ public class Integrator implements Observer {
     private static Rocket rocket;
     private static Thrust thrust;
     public Landed successRocket;
-    public boolean ifLandedSuccess;
+
+    private boolean ifLandedSuccess;
 
     private final double gravity = 1.63;
     private final double k = 636;
     private double dt;
+    private double t;
 
     private double massNext;
     private double heightNext;
@@ -51,6 +53,7 @@ public class Integrator implements Observer {
         heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
         velocityNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() / rocket.getMass())) * dt;
         massNext = rocket.getMass() + thrust.getThrust() * dt;
+        t = t+dt;
         rocket = new Rocket(velocityNext, massNext, heightNext);
 
         System.out.printf("Lot 9/11 H: %.2f  V %.2f, M %.2f TH %.2f\n", heightNext, velocityNext, massNext, thrust.getThrust());
@@ -101,6 +104,10 @@ public class Integrator implements Observer {
     public Thrust getThrust() {
 
         return thrust;
+    }
+
+    public double getT() {
+        return t;
     }
 
     public void setThrust(Thrust thrust) {

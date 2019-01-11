@@ -213,7 +213,7 @@ public class ClassicGameManager extends GameManager implements Observer {
     private void checkRocketState() {
         if (Integrator.getRocket().getyPosition() <= 0){
             mapRocket.setTranslateY(mapRocket.getTranslateY() + 1);
-            if(integrator.ifLandedSuccess)
+            if(integrator.isIfLandedSuccess())
                 mapRocket.setFill(Color.GREEN);
             else{
                 mapRocket.setFill(Color.RED);

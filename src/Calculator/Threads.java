@@ -93,7 +93,14 @@ public class Threads implements Runnable, Observable {
         for (Observer o : observers) {
             try {
                 if(o instanceof Integrator){
-                    if(((Integrator) o).ifLandedSuccess){
+                    if(((Integrator) o).isIfLandedSuccess()){
+                        /*if(o instanceof GameManager(tutaj zamiast game managera możesz wrzucić nazwe klasy która będzie dostawała wynik))
+                            o.update(); wtedy ten update bedzie updateował tą klasę tylko raz w momencie sukcesu przy wyladowaniu i wtedy mozesz pobrac sobie parametry z rakiety
+                            przy uzyciu np. Integrator.getRocket()
+
+                            klasa ktora bedzie tworzyla rekord wygrania musi zawierac pole z integratorem (musisz tworzyc obiekt tej klasy w initialize classicGameController)
+                            z integratora wyciagasz sobie wtedy calkowity czas getT()
+                        */
                         System.out.println(((Integrator) o).getSuccessRocket().getRocket().toString());
                         stop();
                     }
