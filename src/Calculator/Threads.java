@@ -6,6 +6,7 @@ import GameUI.GameManager;
 import Interfaces.Observable;
 import Interfaces.Observer;
 import Exceptions.RocketCrashedException;
+import Score.HighscoreManager;
 
 import java.util.ArrayList;
 
@@ -96,7 +97,7 @@ public class Threads implements Runnable, Observable {
                     if(((Integrator) o).isIfLandedSuccess()){
                         /*if(o instanceof GameManager(tutaj zamiast game managera możesz wrzucić nazwe klasy która będzie dostawała wynik))
                             o.update(); wtedy ten update bedzie updateował tą klasę tylko raz w momencie sukcesu przy wyladowaniu i wtedy mozesz pobrac sobie parametry z rakiety
-                            przy uzyciu np. Integrator.getRocket()
+                            przy uzyciu np. Integrator.getRocket().getMass
 
                             klasa ktora bedzie tworzyla rekord wygrania musi zawierac pole z integratorem (musisz tworzyc obiekt tej klasy w initialize classicGameController)
                             z integratora wyciagasz sobie wtedy calkowity czas getT()
@@ -106,6 +107,8 @@ public class Threads implements Runnable, Observable {
                     }
                     // TODO: 10.01.2019 DAVID TUTAJ MASZ ZWROCONA RAKIETE Z PARAMETRAMI  
                 }
+                if (o instanceof HighscoreManager)
+                    o.update();
                 if(o instanceof GameManager)
                     o.update();
 
