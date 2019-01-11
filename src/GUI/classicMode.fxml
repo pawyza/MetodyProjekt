@@ -126,16 +126,26 @@
                <font>
                   <Font size="20.0" />
                </font>
-            </Button>
-            <Slider fx:id="slider_Thrust" blockIncrement="1.65" max="0.0" min="-16.5" orientation="VERTICAL" />
-            <Text fx:id="txtSliderValue" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-               <font>
-                  <Font size="15.0" />
-               </font>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="60.0" />
                </HBox.margin>
-            </Text>
+            </Button>
+            <VBox alignment="CENTER" prefHeight="62.0" prefWidth="222.0">
+               <children>
+                  <Text fx:id="txtSliderValue" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="142.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" />
+                        <Slider fx:id="slider_Thrust" blockIncrement="1.65" max="0.0" min="-16.5" prefHeight="14.0" prefWidth="168.0" rotate="-180.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
    </children>
