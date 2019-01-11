@@ -39,12 +39,6 @@ public class Integrator implements Observer {
      */
     public Rocket integrate(Rocket rocket, Thrust thrust) throws RocketCrashedException, OutOfFuelException {
 
-        if(landed()){
-            System.out.println("Landed succesfully");
-            successRocket = new Landed(this.rocket);
-            ifLandedSuccess = true;
-            return this.rocket;
-        }
         if (noFuel()) {
             this.thrust = new Thrust(0);
         } else this.thrust = thrust;
@@ -57,6 +51,14 @@ public class Integrator implements Observer {
         rocket = new Rocket(velocityNext, massNext, heightNext);
 
         System.out.printf("Lot 9/11 H: %.2f  V %.2f, M %.2f TH %.2f\n", heightNext, velocityNext, massNext, thrust.getThrust());
+
+        if(landed()){
+            System.out.println("Landed succesfully");
+            successRocket = new Landed(this.rocket);
+            ifLandedSuccess = true;
+            return this.rocket;
+        }
+
         this.rocket = rocket;
         if (!crashed()) {
 
@@ -75,7 +77,7 @@ public class Integrator implements Observer {
     }
 
     private boolean landed() {
-        if ((rocket.getyPosition() <= 0) && rocket.getThrust() > -2) return true;
+        if ((rocket.getyPosition() <= 0) && rocket.getVelocity() > -10) return true;
         else return false;
     }
 
