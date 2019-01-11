@@ -17,7 +17,7 @@
       <Pane fx:id="mapDrawingPane" layoutX="525.0" prefHeight="341.0" prefWidth="75.0" style="-fx-background-color: #5A6784;" />
       <Pane prefHeight="341.0" prefWidth="525.0">
          <children>
-            <VBox layoutX="370.0" prefHeight="120.0" prefWidth="150.0">
+            <VBox layoutX="363.0" layoutY="6.0" prefHeight="120.0" prefWidth="150.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="120.0">
                      <children>

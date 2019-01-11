@@ -38,7 +38,7 @@ public class ClassicGameController implements Initializable {
     private ArrayList<Observer> observers = new ArrayList<>();
 
     private final double startVelocity = -150;
-    private final double startHeight = 50000;
+    private final double startHeight = 10000;
     private final double startMass = 2730.14;
     private final double step = 1;
 
