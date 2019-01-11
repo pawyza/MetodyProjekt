@@ -29,9 +29,8 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     //map rocket marker setting
     private Color rColor = Color.valueOf("#FCFCFC");
-    private double actualHeight;
-    private double mapRocketSize = 9;
-    private double mapRocketHorizontalPosition;
+    private double lastHeightUpdateMap;
+    private int mapRocketSize = 9;
     private double mapRocketVerticalPosition;
     private Rectangle mapRocket;
 
@@ -46,6 +45,9 @@ public class ClassicGameManager extends GameManager implements Observer {
     private ImageView surfaceView;
     private int earthFitWidth = 150;
     private int earthFitHeight = 150;
+    private int earthMaxHeight = 30;
+    private double lastHeightUpdateEarth;
+    private double earthVerticalPosition;
 
     //game background
     private Image earthImage;
@@ -79,47 +81,47 @@ public class ClassicGameManager extends GameManager implements Observer {
     private void setUpMapPane() {
 
         mapGroundWidth = mapPaneWidth;
-        mapRocketHorizontalPosition = (mapPaneWidth / 2) - (mapRocketSize / 2);
         mapRocketVerticalPosition = 30;
-        actualHeight = totalHeight;
+        lastHeightUpdateMap = totalHeight;
 
         mapGround = new Rectangle(mapGroundWidth, mapGroundHeight, gColor);
         mapGround.setX(0);
         mapGround.setY(mapPaneHeight - mapGroundHeight);
 
         mapRocket = new Rectangle(mapRocketSize, mapRocketSize, rColor);
-        mapRocket.setX(mapRocketHorizontalPosition);
+        mapRocket.setX((mapPaneWidth / 2) - (mapRocketSize / 2));
         mapRocket.setY(mapRocketVerticalPosition);
         mapDrawingPane.getChildren().addAll(mapGround, mapRocket);
     }
 
+    private double meterToPixelRatioMap;
+    private double meterToPixelRatioEarth;
+
     private void calculateRatio() {
-        meterToPixelRatio = totalHeight / ((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
-        System.out.println(meterToPixelRatio);
+        meterToPixelRatioMap = totalHeight / ((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
+        System.out.println(meterToPixelRatioMap);
         System.out.println((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
+
+        meterToPixelRatioEarth = totalHeight/(earthVerticalPosition - earthMaxHeight);
     }
 
     private void setUpGamePane(){
         rocketView = new ImageView(rocketImage);
-
         rocketView.setFitHeight(rocketFitHeight);
         rocketView.setFitWidth(rocketFitWidth);
-
         rocketView.setX((getGamePaneWidth()-rocketFitWidth)/2);
         rocketView.setY((getGamePaneHeight()-rocketFitHeight)/2);
 
+        lastHeightUpdateEarth = totalHeight;
         earthView = new ImageView(earthImage);
-
         earthView.setFitHeight(earthFitHeight);
         earthView.setFitWidth(earthFitWidth);
-
+        earthVerticalPosition = getGamePaneHeight()-50;
         earthView.setX(70);
-        earthView.setY(getGamePaneHeight()-50);
+        earthView.setY(earthVerticalPosition);
 
         getGameDrawingPane().getChildren().addAll(rocketView,earthView);
     }
-
-    private double meterToPixelRatio;
 
     private int blinkingTime = 0;
     private int timeToVanish = 15;
@@ -130,25 +132,43 @@ public class ClassicGameManager extends GameManager implements Observer {
     public void update() {
         blink();
         moveMap();
+        moveEarth();
         checkRocketState();
     }
 
-    private void moveMap() {
-        int steps;
-        if(Integrator.getRocket().getyPosition()<(actualHeight-meterToPixelRatio)){
-            steps = (int)((Math.abs(actualHeight-Integrator.getRocket().getyPosition()))/meterToPixelRatio);
-            actualHeight = actualHeight-(meterToPixelRatio*steps);
-            double newTranslate = mapRocket.getTranslateY() + steps;
-            mapRocket.setTranslateY(newTranslate);
-            System.out.println("ruch w dol" + steps);
+    private void moveEarth() {
+        if(Integrator.getRocket().getyPosition()<(lastHeightUpdateEarth - meterToPixelRatioEarth)){
+            int steps = (int)((Math.abs(lastHeightUpdateEarth -Integrator.getRocket().getyPosition()))/ meterToPixelRatioMap);
+            lastHeightUpdateEarth = lastHeightUpdateEarth-(meterToPixelRatioEarth *steps);
+            double newTranslate = earthView.getTranslateY() - steps;
+            earthView.setTranslateY(newTranslate);
+            System.out.println("Ziemia w tle ruch w gore o: "+ steps + " px");
 
         }
-        else if(Integrator.getRocket().getyPosition()>(actualHeight+meterToPixelRatio)){
-            steps = (int)((Math.abs(actualHeight-Integrator.getRocket().getyPosition()))/meterToPixelRatio);
-            actualHeight = actualHeight+(meterToPixelRatio*steps);
+        else if(Integrator.getRocket().getyPosition()>(lastHeightUpdateMap + meterToPixelRatioMap)){
+            int steps = (int)((Math.abs(lastHeightUpdateEarth -Integrator.getRocket().getyPosition()))/ meterToPixelRatioMap);
+            lastHeightUpdateEarth = lastHeightUpdateEarth+(meterToPixelRatioEarth *steps);
+            double newTranslate = earthView.getTranslateY() + steps;
+            earthView.setTranslateY(newTranslate);
+            System.out.println("Ziemia w tle ruch w dol o: "+ steps + " px");
+        }
+    }
+
+    private void moveMap() {
+        if(Integrator.getRocket().getyPosition()<(lastHeightUpdateMap - meterToPixelRatioMap)){
+            int steps = (int)((Math.abs(lastHeightUpdateMap -Integrator.getRocket().getyPosition()))/ meterToPixelRatioMap);
+            lastHeightUpdateMap = lastHeightUpdateMap -(meterToPixelRatioMap *steps);
+            double newTranslate = mapRocket.getTranslateY() + steps;
+            mapRocket.setTranslateY(newTranslate);
+            System.out.println("Znacznik na mapie ruch w dol o: "+ steps + " px");
+
+        }
+        else if(Integrator.getRocket().getyPosition()>(lastHeightUpdateMap + meterToPixelRatioMap)){
+            int steps = (int)((Math.abs(lastHeightUpdateMap -Integrator.getRocket().getyPosition()))/ meterToPixelRatioMap);
+            lastHeightUpdateMap = lastHeightUpdateMap +(meterToPixelRatioMap *steps);
             double newTranslate = mapRocket.getTranslateY() - steps;
             mapRocket.setTranslateY(newTranslate);
-            System.out.println("ruch w gore"+ steps);
+            System.out.println("Znacznik na mapie ruch w gore o: "+ steps + " px");
         }
     }
 
