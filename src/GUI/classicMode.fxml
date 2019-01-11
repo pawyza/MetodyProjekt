@@ -110,7 +110,7 @@
                   </HBox>
                </children>
             </VBox>
-            <ScatterChart fx:id="chart_Phase" layoutX="325.0" layoutY="191.0" legendVisible="false" prefHeight="148.0" prefWidth="200.0">
+            <ScatterChart fx:id="chart_Phase" layoutX="325.0" layoutY="191.0" legendVisible="false" prefHeight="148.0" prefWidth="208.0">
               <xAxis>
                 <NumberAxis label="Velocity" side="BOTTOM" />
               </xAxis>
