@@ -5,6 +5,7 @@ import Calculator.Threads;
 import Enum.RocketParametersType;
 import Exceptions.RocketCrashedException;
 import GameUI.ClassicGameMode.ClassicGameManager;
+import GameUI.GameManager;
 import Interfaces.Observer;
 import Model.Rocket;
 import Model.RocketParameters;
@@ -38,7 +39,7 @@ public class ClassicGameController implements Initializable {
     private ArrayList<Observer> observers = new ArrayList<>();
 
     private final double startVelocity = 0;
-    private final double startHeight = 10;
+    private final double startHeight = 1000;
     private final double startMass = 2730.14;
     private final double step = 1;
 
@@ -159,20 +160,21 @@ public class ClassicGameController implements Initializable {
         if (pressed) {
             thread.stop();
             draw.clearChart();
+            classicGameManager.resetPane();
         } else {
-
             thread = new Threads();
             txtState.setText("Running");
             for (Observer o : observers) {
 
-                if (o instanceof Integrator) o = new Integrator(rocket, step);
-
+                if (o instanceof Integrator) {
+                    o = new Integrator(rocket, step);
+                    classicGameManager.setIntegrator((Integrator) o);
+                }
                 thread.addObserver(o);
 
             }
 
             thread.start();
-
 
         }
 

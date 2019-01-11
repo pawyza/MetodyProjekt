@@ -69,9 +69,20 @@ public class ClassicGameManager extends GameManager implements Observer {
         this.totalHeight = totalHeight;
         this.integrator = integrator;
         loadImages();
+        setUpGamePane();
+        setUpMapPane();
+        calculateRatio();
+    }
+
+    public void setIntegrator(Integrator integrator){
+        this.integrator = integrator;
+    }
+
+    public void resetPane(){
+        getGameDrawingPane().getChildren().clear();
+        mapDrawingPane.getChildren().clear();
         setUpMapPane();
         setUpGamePane();
-        calculateRatio();
     }
 
     private void loadImages(){
@@ -210,14 +221,29 @@ public class ClassicGameManager extends GameManager implements Observer {
         return lastHeightUpdate;
     }
 
+    private void lineUpLanding(){
+        earthView.setTranslateY(0);
+        earthView.setY(30);
+        surfaceView.setTranslateY(0);
+        surfaceView.setY(getGamePaneHeight()-surfaceFitHeight);
+        rocketView.setTranslateY(0);
+        rocketView.setY(getGamePaneHeight()-(surfaceFitHeight/2+rocketFitHeight));
+        mapRocket.setTranslateY(0);
+        mapRocket.setY((mapPaneHeight-(mapGroundHeight + mapRocketSize)));
+    }
+
     private void checkRocketState() {
         if (Integrator.getRocket().getyPosition() <= 0){
-            mapRocket.setTranslateY(mapRocket.getTranslateY() + 1);
+            System.out.println(integrator.isIfLandedSuccess());
             if(integrator.isIfLandedSuccess())
                 mapRocket.setFill(Color.GREEN);
             else{
                 mapRocket.setFill(Color.RED);
+                rocketImage = new Image("/resources/Images/destroyedRocket.png");
+                rocketView.setImage(rocketImage);
+
             }
+            lineUpLanding();
         }
     }
 

@@ -52,6 +52,9 @@ public class Integrator implements Observer {
 
         System.out.printf("Lot 9/11 H: %.2f  V %.2f, M %.2f TH %.2f\n", heightNext, velocityNext, massNext, thrust.getThrust());
 
+
+        this.rocket = rocket;
+
         if(landed()){
             System.out.println("Landed succesfully");
             successRocket = new Landed(this.rocket);
@@ -59,7 +62,6 @@ public class Integrator implements Observer {
             return this.rocket;
         }
 
-        this.rocket = rocket;
         if (!crashed()) {
 
 
@@ -77,7 +79,8 @@ public class Integrator implements Observer {
     }
 
     private boolean landed() {
-        if ((rocket.getyPosition() <= 0) && rocket.getVelocity() > -10) return true;
+        if ((rocket.getyPosition() <= 0) && rocket.getVelocity() > -100)
+            return true;
         else return false;
     }
 
