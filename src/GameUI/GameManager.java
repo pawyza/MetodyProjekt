@@ -10,7 +10,19 @@ public class GameManager {
 
     public GameManager(Pane gameDrawingPane) {
         this.gameDrawingPane = gameDrawingPane;
-        gamePaneHeight = gameDrawingPane.getHeight();
-        gamePaneWidth = gameDrawingPane.getWidth();
+        gamePaneHeight = gameDrawingPane.getPrefHeight();
+        gamePaneWidth = gameDrawingPane.getPrefWidth();
+    }
+
+    public Pane getGameDrawingPane() {
+        return gameDrawingPane;
+    }
+
+    public double getGamePaneHeight() {
+        return gamePaneHeight;
+    }
+
+    public double getGamePaneWidth() {
+        return gamePaneWidth;
     }
 }

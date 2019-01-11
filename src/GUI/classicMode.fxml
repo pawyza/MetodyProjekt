@@ -5,17 +5,17 @@
 <?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ClassicGameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ClassicGameController">
    <children>
-      <Pane fx:id="gameDrawingPane" prefHeight="341.0" prefWidth="525.0" style="-fx-background-color: #0C1016;">
+      <Pane fx:id="gameDrawingPane" prefHeight="341.0" prefWidth="525.0" style="-fx-background-color: #0C1016;" />
+      <Pane fx:id="mapDrawingPane" layoutX="525.0" prefHeight="341.0" prefWidth="75.0" style="-fx-background-color: #5A6784;" />
+      <Pane prefHeight="341.0" prefWidth="525.0">
          <children>
             <VBox prefHeight="120.0" prefWidth="150.0">
                <children>
@@ -110,7 +110,7 @@
                   </HBox>
                </children>
             </VBox>
-            <ScatterChart fx:id="chart_Phase" layoutX="325.0" layoutY="186.0" legendVisible="false" prefHeight="148.0" prefWidth="200.0">
+            <ScatterChart fx:id="chart_Phase" layoutX="325.0" layoutY="191.0" legendVisible="false" prefHeight="148.0" prefWidth="200.0">
               <xAxis>
                 <NumberAxis label="Velocity" side="BOTTOM" />
               </xAxis>
@@ -118,14 +118,8 @@
                 <NumberAxis label="Height" side="LEFT" />
               </yAxis>
             </ScatterChart>
-            <ImageView fx:id="rocketGameObject" fitHeight="62.0" fitWidth="77.0" layoutX="224.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/Images/rocketImg.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="mapDrawingPane" layoutX="525.0" prefHeight="341.0" prefWidth="75.0" style="-fx-background-color: #5A6784;" />
       <HBox alignment="CENTER" layoutY="341.0" prefHeight="61.0" prefWidth="600.0" style="-fx-background-color: #91A7D6;">
          <children>
             <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="48.0" prefWidth="153.0" style="-fx-background-color: #C5D1EB;" text="Pchnij drąga">
