@@ -43,16 +43,20 @@ public class ClassicGameManager extends GameManager implements Observer {
     //game surface
     private Image surfaceImage;
     private ImageView surfaceView;
-    private int earthFitWidth = 150;
-    private int earthFitHeight = 150;
-    private int earthMaxHeight = 30;
-    private double lastHeightUpdateEarth;
-    private double earthVerticalPosition;
+    private int surfaceFitWidth = 525;
+    private int surfaceFitHeight = 87;
+    private int surfaceCloseRatio = 5;
+    private double lastHeightUpdateSurface;
 
     //game background
     private Image earthImage;
     private Image starImage;
     private ImageView earthView;
+    private int earthFitWidth = 150;
+    private int earthFitHeight = 150;
+    private int earthMaxHeight = 30;
+    private double lastHeightUpdateEarth;
+    private double earthVerticalPosition;
 
     public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight, Integrator integrator) {
         super(gameDrawingPane);
@@ -96,13 +100,13 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     private double meterToPixelRatioMap;
     private double meterToPixelRatioEarth;
+    private double meterToPixelRatioSurface;
 
     private void calculateRatio() {
         meterToPixelRatioMap = totalHeight / ((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
-        System.out.println(meterToPixelRatioMap);
-        System.out.println((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
 
         meterToPixelRatioEarth = totalHeight/(earthVerticalPosition - earthMaxHeight);
+        meterToPixelRatioSurface = (totalHeight/surfaceCloseRatio)/(surfaceFitHeight);
     }
 
     private void setUpGamePane(){
@@ -120,7 +124,14 @@ public class ClassicGameManager extends GameManager implements Observer {
         earthView.setX(70);
         earthView.setY(earthVerticalPosition);
 
-        getGameDrawingPane().getChildren().addAll(rocketView,earthView);
+        lastHeightUpdateSurface = totalHeight/surfaceCloseRatio;
+        surfaceView = new ImageView(surfaceImage);
+        surfaceView.setFitHeight(surfaceFitHeight);
+        surfaceView.setFitWidth(surfaceFitWidth);
+        surfaceView.setX(0);
+        surfaceView.setY(getGamePaneHeight());
+
+        getGameDrawingPane().getChildren().addAll(rocketView,earthView,surfaceView);
     }
 
     private int blinkingTime = 0;
@@ -133,11 +144,13 @@ public class ClassicGameManager extends GameManager implements Observer {
         blink();
         moveMap();
         moveEarth();
+        moveSurface();
         checkRocketState();
     }
 
     private void moveEarth() {
-        if(Integrator.getRocket().getyPosition()<(lastHeightUpdateEarth - meterToPixelRatioEarth)){
+        lastHeightUpdateEarth = moveUp(lastHeightUpdateEarth,meterToPixelRatioEarth,earthView);
+        /*if(Integrator.getRocket().getyPosition()<(lastHeightUpdateEarth - meterToPixelRatioEarth)){
             int steps = (int)((Math.abs(lastHeightUpdateEarth -Integrator.getRocket().getyPosition()))/ meterToPixelRatioMap);
             lastHeightUpdateEarth = lastHeightUpdateEarth-(meterToPixelRatioEarth *steps);
             double newTranslate = earthView.getTranslateY() - steps;
@@ -151,7 +164,7 @@ public class ClassicGameManager extends GameManager implements Observer {
             double newTranslate = earthView.getTranslateY() + steps;
             earthView.setTranslateY(newTranslate);
             System.out.println("Ziemia w tle ruch w dol o: "+ steps + " px");
-        }
+        }*/
     }
 
     private void moveMap() {
@@ -170,6 +183,46 @@ public class ClassicGameManager extends GameManager implements Observer {
             mapRocket.setTranslateY(newTranslate);
             System.out.println("Znacznik na mapie ruch w gore o: "+ steps + " px");
         }
+    }
+
+    private void moveSurface() {
+        if(Integrator.getRocket().getyPosition()<(totalHeight/surfaceCloseRatio)){
+            lastHeightUpdateSurface = moveUp(lastHeightUpdateSurface,meterToPixelRatioSurface,surfaceView);
+            /*if(Integrator.getRocket().getyPosition()<(lastHeightUpdateSurface - meterToPixelRatioSurface)){
+                int steps = (int)((Math.abs(lastHeightUpdateSurface -Integrator.getRocket().getyPosition()))/ meterToPixelRatioSurface);
+                lastHeightUpdateSurface = lastHeightUpdateSurface-(meterToPixelRatioSurface *steps);
+                double newTranslate = surfaceView.getTranslateY() - steps;
+                surfaceView.setTranslateY(newTranslate);
+                System.out.println("Ziemia w tle ruch w gore o: "+ steps + " px");
+
+            }
+            else if(Integrator.getRocket().getyPosition()>(lastHeightUpdateSurface + meterToPixelRatioSurface)){
+                int steps = (int)((Math.abs(lastHeightUpdateSurface -Integrator.getRocket().getyPosition()))/ meterToPixelRatioSurface);
+                lastHeightUpdateSurface = lastHeightUpdateSurface+(meterToPixelRatioSurface *steps);
+                double newTranslate = surfaceView.getTranslateY() + steps;
+                surfaceView.setTranslateY(newTranslate);
+                System.out.println("Ziemia w tle ruch w dol o: "+ steps + " px");
+            }*/
+        }
+    }
+
+    private double moveUp(double lastHeightUpdate, double ratio, ImageView view){
+        if(Integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
+            int steps = (int)((Math.abs(lastHeightUpdate -Integrator.getRocket().getyPosition()))/ ratio);
+            lastHeightUpdate = lastHeightUpdate-(ratio*steps);
+            double newTranslate = view.getTranslateY() - steps;
+            view.setTranslateY(newTranslate);
+            System.out.println("Ziemia w tle ruch w gore o: "+ steps + " px");
+
+        }
+        else if(Integrator.getRocket().getyPosition()>(lastHeightUpdate + ratio)){
+            int steps = (int)((Math.abs(lastHeightUpdate -Integrator.getRocket().getyPosition()))/ ratio);
+            lastHeightUpdate = lastHeightUpdate+(ratio*steps);
+            double newTranslate = view.getTranslateY() + steps;
+            view.setTranslateY(newTranslate);
+            System.out.println("Ziemia w tle ruch w dol o: "+ steps + " px");
+        }
+        return lastHeightUpdate;
     }
 
     private void checkRocketState() {
