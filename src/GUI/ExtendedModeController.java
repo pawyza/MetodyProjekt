@@ -58,7 +58,7 @@ public class ExtendedModeController implements Initializable {
         txt_Thrust.textProperty().bind(Bindings.format("%.2f", slider_Thrust.valueProperty()));
         txt_Angle.textProperty().bind(Bindings.format("%.2f", slider_Angle.valueProperty()));
 
-        rocket = new Rocket(startYVelocity, startXVelocity, startMass, startYPosition, startXPosition, startAngle,0);
+        rocket = new Rocket(startYVelocity, startXVelocity, startMass, startYPosition, startXPosition, startAngle, 0);
         System.out.println(rocket.toString());
 
 
@@ -136,7 +136,7 @@ public class ExtendedModeController implements Initializable {
     void btnReturn_OnAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
-               GUI.Main.stage.setScene(new Scene(root));
+        //    GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
