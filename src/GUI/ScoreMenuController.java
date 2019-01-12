@@ -27,21 +27,23 @@ public class ScoreMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        try {
-            fileReader = new BufferedReader(new FileReader(filePath));
-            String numberAsString = fileReader.readLine();
-            number = Integer.parseInt(numberAsString);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-            if (fileReader != null) {
-                fileReader.close();
-            }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
+
+       try {
+           fileReader = new BufferedReader(new FileReader(filePath));
+           String numberAsString = fileReader.readLine();
+          number = Integer.parseInt(numberAsString);
+      } catch (IOException e) {
+          e.printStackTrace();
+       } finally {
+          try {
+           if (fileReader != null) {
+               fileReader.close();
+           }
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
     }
 
 }
