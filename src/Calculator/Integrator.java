@@ -136,7 +136,7 @@ public class Integrator implements Observer {
     }
 
     @Override
-    public void update() throws RocketCrashedException {
+    public void update() throws RocketCrashedException, OutOfFuelException {
         try {
             integrate(rocket, getThrust());
         } catch (OutOfFuelException e) {

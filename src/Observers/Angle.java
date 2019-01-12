@@ -20,11 +20,11 @@ public class Angle implements Observer {
         this.text = text;
     }
 
-    public static double getAngle() {
+    public  double getAngle() {
         return angle;
     }
 
-    public static void setAngle(double angle) {
+    public  void setAngle(double angle) {
         Angle.angle = angle;
     }
 

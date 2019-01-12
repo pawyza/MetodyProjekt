@@ -20,13 +20,13 @@ public class Rocket{
 
     }
 
-    public Rocket(double velocity, double velocityX, double mass, double yPosition, double xPosition, double angle) {
+    public Rocket(double velocity, double velocityX, double mass, double yPosition, double xPosition, double angle,double thrust) {
         this.velocity = velocity;
         this.velocityX = velocityX;
         this.mass = mass;
         this.yPosition = yPosition;
         this.xPosition = xPosition;
-
+        this.thrust = thrust;
         this.angle = angle;
     }
 

@@ -2,13 +2,13 @@ package GUI;
 
 import Calculator.ExpandedIntegrator;
 import Calculator.Threads;
+import Enum.RocketParametersType;
 import Interfaces.Observer;
 import Model.Rocket;
 import Model.RocketParameters;
 import Observers.Angle;
 import Observers.GeneralDraw;
 import Observers.Thrust;
-import Enum.RocketParametersType;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -37,14 +36,14 @@ public class ExtendedModeController implements Initializable {
     private final double startXPosition = 0;
     private final double startYPosition = 50000;
     private final double startMass = 1200.14;
-    private final double startAngle = 0;
+    private final double startAngle = 1;
     private final double step = 0.1;
 
     private Threads thread;
     private ExpandedIntegrator expandedIntegrator;
     private Rocket rocket;
     private Thrust thrust;
-    private Thrust angle;
+    private Angle angle;
     private GeneralDraw draw;
 
     private RocketParameters yPosition;
@@ -56,35 +55,45 @@ public class ExtendedModeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    txt_ThrustY.textProperty().bind(Bindings.format("%.2f",slider_Thrust.valueProperty()));
-    txt_ThrustX.textProperty().bind(Bindings.format("%.2f",slider_Angle.valueProperty()));
+        txt_Thrust.textProperty().bind(Bindings.format("%.2f", slider_Thrust.valueProperty()));
+        txt_Angle.textProperty().bind(Bindings.format("%.2f", slider_Angle.valueProperty()));
 
-    rocket = new Rocket(startYVelocity,startXVelocity,startMass,startYPosition,startXPosition,startAngle);
+        rocket = new Rocket(startYVelocity, startXVelocity, startMass, startYPosition, startXPosition, startAngle,0);
         System.out.println(rocket.toString());
-    expandedIntegrator = new ExpandedIntegrator(rocket,step);
-    thread = new Threads();
-
-    thrust = new Thrust(0,txt_ThrustY);
-    angle = new Thrust(0,txt_ThrustX);
-
-    draw = new GeneralDraw(chart_RocketPosition,expandedIntegrator);
 
 
-    mass = new RocketParameters(RocketParametersType.MASS,txt_Mass,expandedIntegrator);
-    yPosition = new RocketParameters(RocketParametersType.HEIGHT,txt_PositionY,expandedIntegrator);
-    yVelocity = new RocketParameters(RocketParametersType.VELOCITY,txt_VelocityY,expandedIntegrator);
-    xPosition = new RocketParameters(RocketParametersType.XPOSITION,txt_PositionX,expandedIntegrator);
-    xVelocity = new RocketParameters(RocketParametersType.XVELOCITY,txt_VelocityX,expandedIntegrator);
+        expandedIntegrator = new ExpandedIntegrator(rocket, step);
 
-    observers.add(expandedIntegrator);
-    observers.add(mass);
-    observers.add(yPosition);
-    observers.add(xPosition);
-    observers.add(xVelocity);
-    observers.add(yVelocity);
-    observers.add(draw);
+        thread = new Threads();
+
+        thrust = new Thrust(0, txt_Thrust);
+        angle = new Angle(startAngle, txt_Angle);
+
+        expandedIntegrator.setThrust(thrust);
+        expandedIntegrator.setAngle(angle);
+
+        draw = new GeneralDraw(chart_RocketPosition, expandedIntegrator);
+        mass = new RocketParameters(RocketParametersType.MASS, txt_Mass, expandedIntegrator);
+        yPosition = new RocketParameters(RocketParametersType.HEIGHT, txt_PositionY, expandedIntegrator);
+        yVelocity = new RocketParameters(RocketParametersType.VELOCITY, txt_VelocityY, expandedIntegrator);
+        xPosition = new RocketParameters(RocketParametersType.XPOSITION, txt_PositionX, expandedIntegrator);
+        xVelocity = new RocketParameters(RocketParametersType.XVELOCITY, txt_VelocityX, expandedIntegrator);
+
+        System.out.println(thrust.getThrust());
+        System.out.println(angle.getAngle());
+
+        observers.add(expandedIntegrator);
+        observers.add(mass);
+        observers.add(yPosition);
+        observers.add(xPosition);
+        observers.add(xVelocity);
+        observers.add(yVelocity);
+        observers.add(thrust);
+        observers.add(angle);
+        observers.add(draw);
 
     }
+
     @FXML
     private Pane mainPane;
 
@@ -110,10 +119,10 @@ public class ExtendedModeController implements Initializable {
     private Text txt_Mass;
 
     @FXML
-    private Text txt_ThrustX;
+    private Text txt_Angle;
 
     @FXML
-    private Text txt_ThrustY;
+    private Text txt_Thrust;
     @FXML
     private Slider slider_Angle;
 
@@ -127,7 +136,7 @@ public class ExtendedModeController implements Initializable {
     void btnReturn_OnAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
-            GUI.Main.stage.setScene(new Scene(root));
+               GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -135,9 +144,13 @@ public class ExtendedModeController implements Initializable {
 
     @FXML
     void btnStart_OnAction(ActionEvent event) {
-    for(Observer o: observers){
-        thread.addObserver(o);
-    }
+
+        thread = new Threads();
+        for (Observer o : observers) {
+            if (o instanceof ExpandedIntegrator) o = new ExpandedIntegrator(rocket, step);
+
+            thread.addObserver(o);
+        }
         thread.start();
     }
 
