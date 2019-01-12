@@ -11,7 +11,7 @@
           <TableColumn fx:id="tableName" prefWidth="150.4000244140625" text="Name" />
             <TableColumn fx:id="tableTime" prefWidth="150.4000244140625" text="Time" />
             <TableColumn fx:id="tableThrust" prefWidth="150.4000244140625" text="Thrust" />
-            <TableColumn fx:id="tableScore" prefWidth="153.60003662109375" text="Score" />
+            <TableColumn fx:id="tableScores" prefWidth="153.60003662109375" text="Scores" />
         </columns>
       </TableView>
    </children>

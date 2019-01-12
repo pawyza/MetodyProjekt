@@ -1,50 +1,80 @@
 package GUI;
 
 import Score.Score;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+
 
 public class ScoreMenuController implements Initializable {
 
     private ObservableList<Score> scores;
-    String filePath = "scores.txt";
-    int number = 0;
-    BufferedReader fileReader = null;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        scores= FXCollections.observableArrayList(); //nie umiem tu pobrać metody która zwróci mi scores
+        tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
+        tableScores.setCellValueFactory(new PropertyValueFactory<>("score"));
+        tableScore.setItems(scores);
+
+
+    }
+// nie wiem czy start potrzeby bo mamy przecież w startMenuController przeniesienia do okna po kliknięciu
+
+    public void start(Stage primaryStage) throws IOException {
+        GUI.Main.stage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("scoreMenu.fxml"));
+        primaryStage.setTitle("Score Menu");
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.show();
+    }
+
 
     @FXML
     private Pane mainPane;
 
     @FXML
-    private TableView<?> tableFrajerow;
+    private TableView<Score> tableScore;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    private TableColumn<Score, ArrayList<String>> tableName;
+
+    @FXML
+    private TableColumn<Score, ArrayList<Double>> tableTime;
+
+    @FXML
+    private TableColumn<Score, ArrayList<Double>> tableThrust;
+
+    @FXML
+    private TableColumn<Score, ArrayList<Double>> tableScores;
 
 
 
-       try {
-           fileReader = new BufferedReader(new FileReader(filePath));
-           String numberAsString = fileReader.readLine();
-          number = Integer.parseInt(numberAsString);
-      } catch (IOException e) {
-          e.printStackTrace();
-       } finally {
-          try {
-           if (fileReader != null) {
-               fileReader.close();
-           }
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-       }
-    }
+
+
 
 }
+
+
+
+
+
 
