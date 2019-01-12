@@ -120,22 +120,36 @@
             </ScatterChart>
          </children>
       </Pane>
-      <HBox alignment="CENTER" layoutY="341.0" prefHeight="61.0" prefWidth="600.0" style="-fx-background-color: #91A7D6;">
+      <HBox alignment="CENTER" layoutY="341.0" prefHeight="61.0" prefWidth="600.0" style="-fx-background-color: #91A7D6;" styleClass="hbox" stylesheets="@../Stylesheets/classicGameStylesheet.css">
          <children>
-            <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="48.0" prefWidth="153.0" style="-fx-background-color: #C5D1EB;" text="Pchnij drąga">
+            <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="50.0" prefWidth="50.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
                <font>
                   <Font size="20.0" />
                </font>
-            </Button>
-            <Slider fx:id="slider_Thrust" blockIncrement="1.65" max="0.0" min="-16.5" orientation="VERTICAL" />
-            <Text fx:id="txtSliderValue" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
-               <font>
-                  <Font size="15.0" />
-               </font>
                <HBox.margin>
-                  <Insets right="5.0" />
+                  <Insets right="60.0" />
                </HBox.margin>
-            </Text>
+            </Button>
+            <VBox alignment="CENTER" prefHeight="62.0" prefWidth="222.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="222.0" styleClass="textBG" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+                     <children>
+                        <Text fx:id="txtSliderValue" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="142.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Min" />
+                        <Slider fx:id="slider_Thrust" blockIncrement="1.65" max="0.0" min="-16.5" prefHeight="14.0" prefWidth="168.0" rotate="-180.0" stylesheets="@../Stylesheets/classicGameStylesheet.css" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Max" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
    </children>
