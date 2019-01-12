@@ -1,0 +1,19 @@
+.button {
+    -fx-background-color: transparent;
+    -fx-background-image: url('/resources/Images/button.png');
+    -fx-background-size: 50px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+
+.slider .thumb {
+    -fx-background-color: transparent;
+    -fx-background-image: url('/resources/Images/sliderThumb.png');
+    -fx-background-size: 10px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+
+.slider .track {
+    -fx-background-color: #2F2F2F;
+}
