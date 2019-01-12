@@ -1,19 +1,28 @@
 package Score;
 
-import java.io.*;
-import java.util.ArrayList;
+import Calculator.Integrator;
 
-public class ScoreManager {
-    private ArrayList<Score> scores;
+import javafx.collections.ObservableList;
+
+import java.io.*;
+
+
+
+public class ScoreManager  {
+    private ObservableList<Score> scores;
+    private Integrator integrator;
     // The name of the file where the highscores will be saved
     String filePath = "scores.txt";
     int number = 0;
     FileWriter fileWriter = null;
     BufferedReader fileReader = null;
 
+
     //Initialising an in and outputStream for working with the file
     ObjectOutputStream outputStream = null;
     ObjectInputStream inputStream = null;
+
+
 
     public void saveScoreFile() throws IOException {
         try {
@@ -65,5 +74,6 @@ public class ScoreManager {
             }
         }
     }
+
 
 }

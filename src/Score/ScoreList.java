@@ -3,47 +3,47 @@ package Score;
 import java.util.ArrayList;
 
 public class ScoreList {
-    private ArrayList<String> name;
-    private ArrayList<Double> time;
-    private ArrayList<Double> thrust;
-    private ArrayList<Double> score;
+    private ArrayList<String> nameList;
+    private ArrayList<Double> timeList;
+    private ArrayList<Double> thrustList;
+    private ArrayList<Double> scoreList;
 
-    public ScoreList(ArrayList<String> name, ArrayList<Double> time, ArrayList<Double> thrust, ArrayList<Double> score) {
-        this.name = name;
-        this.time = time;
-        this.thrust = thrust;
-        this.score = score;
+    public ScoreList(ArrayList<String> nameList, ArrayList<Double> timeList, ArrayList<Double> thrustList, ArrayList<Double> scoreList) {
+        this.nameList = nameList;
+        this.timeList = timeList;
+        this.thrustList = thrustList;
+        this.scoreList = scoreList;
     }
 
-    public ArrayList<String> getName() {
-        return name;
+    public ArrayList<String> getNameList() {
+        return nameList;
     }
 
-    public void setName(ArrayList<String> name) {
-        this.name = name;
+    public void setNameList(ArrayList<String> nameList) {
+        this.nameList = nameList;
     }
 
-    public ArrayList<Double> getTime() {
-        return time;
+    public ArrayList<Double> getTimeList() {
+        return timeList;
     }
 
-    public void setTime(ArrayList<Double> time) {
-        this.time = time;
+    public void setTimeList(ArrayList<Double> timeList) {
+        this.timeList = timeList;
     }
 
-    public ArrayList<Double> getThrust() {
-        return thrust;
+    public ArrayList<Double> getThrustList() {
+        return thrustList;
     }
 
-    public void setThrust(ArrayList<Double> thrust) {
-        this.thrust = thrust;
+    public void setThrustList(ArrayList<Double> thrustList) {
+        this.thrustList = thrustList;
     }
 
-    public ArrayList<Double> getScore() {
-        return score;
+    public ArrayList<Double> getScoreList() {
+        return scoreList;
     }
 
-    public void setScore(ArrayList<Double> score) {
-        this.score = score;
+    public void setScoreList(ArrayList<Double> scoreList) {
+        this.scoreList = scoreList;
     }
 }

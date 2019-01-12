@@ -1,5 +1,6 @@
 package GUI;
 
+import Calculator.Integrator;
 import Score.Score;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,16 +20,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static Calculator.Integrator.getRocket;
 
 
 public class ScoreMenuController implements Initializable {
 
     private ObservableList<Score> scores;
+    private Integrator integrator;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        scores= FXCollections.observableArrayList(); //nie umiem tu pobrać metody która zwróci mi scores
+        scores= FXCollections.observableArrayList(new Score((new Score(Score.getName(),integrator.getT(),getRocket().getThrust(),Score.getScore())); //nie umiem tu pobrać metody która zwróci mi scores
         tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
