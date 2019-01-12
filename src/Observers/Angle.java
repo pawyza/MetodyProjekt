@@ -6,7 +6,6 @@ import Interfaces.Observer;
 import javafx.scene.text.Text;
 
 public class Angle implements Observer {
-    //TODO SPRWADZIC CZY JEST POTRZEBNE
 
     private static double angle;
     private static Text text;
