@@ -46,15 +46,6 @@ public class ScoreMenuController implements Initializable {
 
 
     }
-// nie wiem czy start potrzeby bo mamy przecież w startMenuController przeniesienia do okna po kliknięciu
-
-    public void start(Stage primaryStage) throws IOException {
-        GUI.Main.stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("scoreMenu.fxml"));
-        primaryStage.setTitle("Score Menu");
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.show();
-    }
 
 
     @FXML
