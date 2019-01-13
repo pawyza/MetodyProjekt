@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public class StartMenuController {
-
     @FXML
     private Pane mainPane;
 

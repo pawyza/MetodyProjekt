@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
@@ -14,5 +15,6 @@
             <TableColumn fx:id="tableScores" prefWidth="153.60003662109375" text="Score" />
          </columns>
       </TableView>
+      <Button fx:id="BtnReturn" layoutX="536.0" layoutY="373.0" mnemonicParsing="false" onAction="#BackToMenu" text="Return" />
    </children>
 </Pane>

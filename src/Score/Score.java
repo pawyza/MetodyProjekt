@@ -12,8 +12,8 @@ public class Score  {
     private double thrust;
     private double time;
 
-    public Score(String name,double time, double thrust ,double score) {
-        this.score = score;
+    public Score(String name,double time, double thrust) {
+        this.score = thrust+time;
         this.name = name;
         this.thrust = thrust;
         this.time = time;

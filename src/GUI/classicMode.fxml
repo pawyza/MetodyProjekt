@@ -150,6 +150,7 @@
                   </HBox>
                </children>
             </VBox>
+            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backToMenu" prefWidth="55.0" />
          </children>
       </HBox>
    </children>

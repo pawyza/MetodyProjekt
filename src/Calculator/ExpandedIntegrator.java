@@ -73,7 +73,7 @@ public class ExpandedIntegrator extends Integrator implements Observer {
 
     }
 
-    public static Rocket getRocket() {
+    public Rocket getRocket() {
         return rocket;
     }
 

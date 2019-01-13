@@ -6,6 +6,7 @@ import GameUI.GameManager;
 import Interfaces.Observable;
 import Interfaces.Observer;
 import Exceptions.RocketCrashedException;
+import Score.Score;
 
 import java.util.ArrayList;
 
@@ -103,6 +104,9 @@ public class Threads implements Runnable, Observable {
                         */
                         System.out.println(((Integrator) o).getSuccessRocket().getRocket().toString());
                         stop();
+                    }
+                    if (o instanceof Score){
+                        o.update();
                     }
                     // TODO: 10.01.2019 DAVID TUTAJ MASZ ZWROCONA RAKIETE Z PARAMETRAMI  
                 }

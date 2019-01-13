@@ -101,7 +101,7 @@ public class Integrator implements Observer {
     }
 
 
-    public static Rocket getRocket() {
+    public Rocket getRocket() {
 
         return rocket;
     }
@@ -110,6 +110,7 @@ public class Integrator implements Observer {
 
         return thrust;
     }
+
 
     public double getT() {
         return t;

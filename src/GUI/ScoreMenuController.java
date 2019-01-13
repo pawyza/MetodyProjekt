@@ -1,6 +1,7 @@
 package GUI;
 
 import Calculator.Integrator;
+import Model.DataStore;
 import Score.Score;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,28 +16,33 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static Calculator.Integrator.getRocket;
 
 
 public class ScoreMenuController implements Initializable {
 
     private ObservableList<Score> scores;
-    private Integrator integrator;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        scores= FXCollections.observableArrayList(new Score((new Score(Score.getName(),integrator.getT(),getRocket().getThrust(),Score.getScore())); //nie umiem tu pobrać metody która zwróci mi scores
-        tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-        tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
-        tableScores.setCellValueFactory(new PropertyValueFactory<>("score"));
-        tableScore.setItems(scores);
+
+        Integrator integrator = DataStore.integrator;
+
+        if(integrator != null) {
+            //nie umiem tu pobrać metody która zwróci mi scores
+            scores = FXCollections.observableArrayList(new Score("attempt 1", integrator.getT(), integrator.getSuccessRocket().getRocket().getMass()-1000));
+            tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+            tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
+            tableScores.setCellValueFactory(new PropertyValueFactory<>("score"));
+            tableScore.setItems(scores);
+        }
 
 
     }
@@ -69,7 +75,19 @@ public class ScoreMenuController implements Initializable {
     @FXML
     private TableColumn<Score, ArrayList<Double>> tableScores;
 
+    @FXML
+    private Button BtnReturn;
 
+    @FXML
+    void BackToMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
+            GUI.Main.stage.setScene(new Scene(root));
+
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
 
 

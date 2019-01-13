@@ -3,6 +3,7 @@ package GameUI.ClassicGameMode;
 import Calculator.Integrator;
 import GameUI.GameManager;
 import Interfaces.Observer;
+import Model.DataStore;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -176,27 +177,27 @@ public class ClassicGameManager extends GameManager implements Observer {
     }
 
     private void moveSurface() {
-        if(Integrator.getRocket().getyPosition()<(totalHeight/surfaceCloseRatio)){
+        if(DataStore.integrator.getRocket().getyPosition()<(totalHeight/surfaceCloseRatio)){
             lastHeightUpdateSurface = moveUp(lastHeightUpdateSurface,meterToPixelRatioSurface,surfaceView);
         }
     }
 
     private void moveRocket(){
-        if(Integrator.getRocket().getyPosition()<(totalHeight/(surfaceCloseRatio^2))){
+        if(DataStore.integrator.getRocket().getyPosition()<(totalHeight/(surfaceCloseRatio^2))){
             lastHeightUpdateRocket = moveDown(lastHeightUpdateRocket,meterToPixelRatioRocket,rocketView);
         }
     }
 
     private double moveDown(double lastHeightUpdate, double ratio, Node view){
-        if(Integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
-            int steps = (int)((Math.abs(lastHeightUpdate -Integrator.getRocket().getyPosition()))/ ratio);
+        if(DataStore.integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
+            int steps = (int)((Math.abs(lastHeightUpdate -DataStore.integrator.getRocket().getyPosition()))/ ratio);
             lastHeightUpdate = lastHeightUpdate-(ratio*steps);
             double newTranslate = view.getTranslateY() + steps;
             view.setTranslateY(newTranslate);
 
         }
-        else if(Integrator.getRocket().getyPosition()>(lastHeightUpdate + ratio)){
-            int steps = (int)((Math.abs(lastHeightUpdate -Integrator.getRocket().getyPosition()))/ ratio);
+        else if(DataStore.integrator.getRocket().getyPosition()>(lastHeightUpdate + ratio)){
+            int steps = (int)((Math.abs(lastHeightUpdate -DataStore.integrator.getRocket().getyPosition()))/ ratio);
             lastHeightUpdate = lastHeightUpdate+(ratio*steps);
             double newTranslate = view.getTranslateY() - steps;
             view.setTranslateY(newTranslate);
@@ -205,15 +206,15 @@ public class ClassicGameManager extends GameManager implements Observer {
     }
 
     private double moveUp(double lastHeightUpdate, double ratio, Node view){
-        if(Integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
-            int steps = (int)((Math.abs(lastHeightUpdate -Integrator.getRocket().getyPosition()))/ ratio);
+        if(DataStore.integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
+            int steps = (int)((Math.abs(lastHeightUpdate -DataStore.integrator.getRocket().getyPosition()))/ ratio);
             lastHeightUpdate = lastHeightUpdate-(ratio*steps);
             double newTranslate = view.getTranslateY() - steps;
             view.setTranslateY(newTranslate);
 
         }
-        else if(Integrator.getRocket().getyPosition()>(lastHeightUpdate + ratio)){
-            int steps = (int)((Math.abs(lastHeightUpdate -Integrator.getRocket().getyPosition()))/ ratio);
+        else if(DataStore.integrator.getRocket().getyPosition()>(lastHeightUpdate + ratio)){
+            int steps = (int)((Math.abs(lastHeightUpdate -DataStore.integrator.getRocket().getyPosition()))/ ratio);
             lastHeightUpdate = lastHeightUpdate+(ratio*steps);
             double newTranslate = view.getTranslateY() + steps;
             view.setTranslateY(newTranslate);
@@ -233,7 +234,7 @@ public class ClassicGameManager extends GameManager implements Observer {
     }
 
     private void checkRocketState() {
-        if (Integrator.getRocket().getyPosition() <= 0){
+        if (DataStore.integrator.getRocket().getyPosition() <= 0){
             System.out.println(integrator.isIfLandedSuccess());
             if(integrator.isIfLandedSuccess())
                 mapRocket.setFill(Color.GREEN);

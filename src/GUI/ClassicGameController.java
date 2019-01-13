@@ -7,6 +7,7 @@ import Exceptions.RocketCrashedException;
 import GameUI.ClassicGameMode.ClassicGameManager;
 import GameUI.GameManager;
 import Interfaces.Observer;
+import Model.DataStore;
 import Model.Rocket;
 import Model.RocketParameters;
 import Observers.GeneralDraw;
@@ -14,7 +15,10 @@ import Observers.Thrust;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -23,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -44,9 +49,7 @@ public class ClassicGameController implements Initializable {
     private final double step = 1;
 
     private Threads thread;
-    private Integrator integrator;
-    private Rocket rocket;
-    private RocketParameters height;
+     private RocketParameters height;
     private RocketParameters mass;
     private RocketParameters velocity;
     private Thrust thrust;
@@ -61,23 +64,23 @@ public class ClassicGameController implements Initializable {
 
 // initialize
         thread = new Threads();
-        rocket = new Rocket(startVelocity, startMass, startHeight);
-        integrator = new Integrator(rocket, step);
-        draw = new GeneralDraw(chart_Phase,integrator);
+        Rocket rocket = new Rocket(startVelocity, startMass, startHeight);
+        DataStore.integrator = new Integrator(rocket, step);
+        draw = new GeneralDraw(chart_Phase,DataStore.integrator);
 
 
-        height = new RocketParameters(RocketParametersType.HEIGHT, txtHeight, integrator);
-        mass = new RocketParameters(RocketParametersType.MASS, txtFuelAmount, integrator);
-        velocity = new RocketParameters(RocketParametersType.VELOCITY, txtSpeed, integrator);
+        height = new RocketParameters(RocketParametersType.HEIGHT, txtHeight, DataStore.integrator);
+        mass = new RocketParameters(RocketParametersType.MASS, txtFuelAmount, DataStore.integrator);
+        velocity = new RocketParameters(RocketParametersType.VELOCITY, txtSpeed, DataStore.integrator);
         thrust = new Thrust(0, txtSliderValue);
 
-        integrator.setThrust(thrust);
+        DataStore.integrator.setThrust(thrust);
 
-        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane,startHeight,integrator);
+        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane,startHeight,DataStore.integrator);
 
 // add observers to list
 
-        observers.add(integrator);
+        observers.add(DataStore.integrator);
         observers.add(height);
         observers.add(mass);
         observers.add(velocity);
@@ -167,7 +170,7 @@ public class ClassicGameController implements Initializable {
             for (Observer o : observers) {
 
                 if (o instanceof Integrator) {
-                    o = new Integrator(rocket, step);
+                    o = new Integrator( DataStore.integrator.getRocket(), step);
                     classicGameManager.setIntegrator((Integrator) o);
                 }
                 thread.addObserver(o);
@@ -188,5 +191,17 @@ public class ClassicGameController implements Initializable {
 
     }
 
+    @FXML
+    private Button backBtn;
 
+    @FXML
+    void backToMenu(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
+            GUI.Main.stage.setScene(new Scene(root));
+
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 }

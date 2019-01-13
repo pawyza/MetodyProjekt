@@ -9,6 +9,7 @@ import Model.RocketParameters;
 import Observers.Angle;
 import Observers.GeneralDraw;
 import Observers.Thrust;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -136,7 +137,10 @@ public class ExtendedModeController implements Initializable {
     void btnReturn_OnAction(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
-        //    GUI.Main.stage.setScene(new Scene(root));
+            GUI.Main.stage.setScene(new Scene(root));
+
+
+
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
