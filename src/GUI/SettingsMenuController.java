@@ -12,7 +12,7 @@ import java.io.IOException;
 public class SettingsMenuController {
 
     @FXML
-    private Button btnReturn;
+    private Button backBtn;
 
     @FXML
     void BackToMenu(ActionEvent event) {

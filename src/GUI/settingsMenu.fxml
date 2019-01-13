@@ -5,6 +5,6 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SettingsMenuController">
    <children>
-      <Button fx:id="btnReturn" layoutX="536.0" layoutY="374.0" mnemonicParsing="false" onAction="#BackToMenu" text="Return" />
+      <Button fx:id="backBtn" layoutX="536.0" layoutY="374.0" mnemonicParsing="false" onAction="#BackToMenu" text="Return" />
    </children>
 </Pane>

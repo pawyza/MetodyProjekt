@@ -67,7 +67,7 @@ public class ScoreMenuController implements Initializable {
     private TableColumn<Score, ArrayList<Double>> tableScores;
 
     @FXML
-    private Button BtnReturn;
+    private Button backBtn;
 
     @FXML
     void BackToMenu(ActionEvent event) {

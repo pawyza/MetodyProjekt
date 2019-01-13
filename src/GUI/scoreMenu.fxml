@@ -15,6 +15,6 @@
             <TableColumn fx:id="tableScores" prefWidth="153.60003662109375" text="Score" />
          </columns>
       </TableView>
-      <Button fx:id="BtnReturn" layoutX="536.0" layoutY="373.0" mnemonicParsing="false" onAction="#BackToMenu" text="Return" />
+      <Button fx:id="backBtn" layoutX="536.0" layoutY="373.0" mnemonicParsing="false" onAction="#BackToMenu" text="Return" />
    </children>
 </Pane>
