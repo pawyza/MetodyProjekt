@@ -155,7 +155,7 @@ public class ClassicGameController implements Initializable {
      */
 
 
-    boolean pressed = false;
+    private boolean pressed = false;
 
     @FXML
     void changeState(ActionEvent event) {
@@ -174,13 +174,9 @@ public class ClassicGameController implements Initializable {
                     classicGameManager.setIntegrator((Integrator) o);
                 }
                 thread.addObserver(o);
-
             }
-
             thread.start();
-
         }
-
         pressed = !pressed;
     }
 

@@ -133,9 +133,30 @@ public class ExtendedModeController implements Initializable {
     @FXML
     private ScatterChart<Number, Number> chart_RocketPosition;
 
+    private boolean pressed = false;
+
+    @FXML
+    void btnStart_OnAction(ActionEvent event) {
+        if (pressed) {
+            thread.stop();
+        } else {
+            thread = new Threads();
+            for (Observer o : observers) {
+                if (o instanceof ExpandedIntegrator) o = new ExpandedIntegrator(rocket, step);
+
+                thread.addObserver(o);
+            }
+            thread.start();
+        }
+        pressed = !pressed;
+    }
+
     @FXML
     void btnReturn_OnAction(ActionEvent event) {
         try {
+            if(pressed){
+                thread.stop();
+            }
             Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
             GUI.Main.stage.setScene(new Scene(root));
 
@@ -144,17 +165,6 @@ public class ExtendedModeController implements Initializable {
         }
     }
 
-    @FXML
-    void btnStart_OnAction(ActionEvent event) {
-
-        thread = new Threads();
-        for (Observer o : observers) {
-            if (o instanceof ExpandedIntegrator) o = new ExpandedIntegrator(rocket, step);
-
-            thread.addObserver(o);
-        }
-        thread.start();
-    }
 
 
 }
