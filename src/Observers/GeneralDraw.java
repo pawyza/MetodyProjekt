@@ -38,7 +38,6 @@ public class GeneralDraw implements Observer {
     public void update() {
         if (isextended) {
             Platform.runLater(() -> {
-                System.out.println("X : " + String.valueOf(expintegrator.getRocket().getxPosition()));
                 data.getData().add(new XYChart.Data<>(expintegrator.getRocket().getxPosition(), expintegrator.getRocket().getyPosition()));
 
             });
