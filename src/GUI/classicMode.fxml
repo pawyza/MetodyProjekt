@@ -21,7 +21,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="120.0">
                      <children>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="Wysokość:">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Wysokość:">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -29,7 +29,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtHeight" fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="50000">
+                        <Text fx:id="txtHeight" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="50000">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -37,7 +37,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="m">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="m">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -46,7 +46,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="120.0">
                      <children>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość:">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Prędkość:">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -54,12 +54,15 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtSpeed" fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                        <Text fx:id="txtSpeed" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                            <font>
                               <Font size="15.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
                         </Text>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="m/s">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -68,7 +71,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
                      <children>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="Masa">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Masa">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -76,7 +79,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtFuelAmount" fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="2730.14">
+                        <Text fx:id="txtFuelAmount" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="2730.14">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -84,7 +87,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="kg">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -93,7 +96,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0">
                      <children>
-                        <Text fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="Stan silnika:">
+                        <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Stan silnika:">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -101,7 +104,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtState" fill="#91a7d6" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyłączony">
+                        <Text fx:id="txtState" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyłączony">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -110,7 +113,7 @@
                   </HBox>
                </children>
             </VBox>
-            <ScatterChart fx:id="chart_Phase" layoutX="325.0" layoutY="191.0" legendVisible="false" prefHeight="148.0" prefWidth="208.0">
+            <ScatterChart fx:id="chart_Phase" layoutX="309.0" layoutY="146.0" legendVisible="false" prefHeight="195.0" prefWidth="208.0">
               <xAxis>
                 <NumberAxis label="Velocity" side="BOTTOM" />
               </xAxis>
@@ -122,12 +125,12 @@
       </Pane>
       <HBox alignment="CENTER" layoutY="341.0" prefHeight="61.0" prefWidth="600.0" style="-fx-background-color: #91A7D6;" styleClass="hbox" stylesheets="@../Stylesheets/classicGameStylesheet.css">
          <children>
-            <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="50.0" prefWidth="50.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+            <Button fx:id="btnChangeState" alignment="CENTER" mnemonicParsing="false" onAction="#changeState" prefHeight="50.0" prefWidth="50.0" styleClass="buttonstart" stylesheets="@../Stylesheets/classicGameStylesheet.css">
                <font>
                   <Font size="20.0" />
                </font>
                <HBox.margin>
-                  <Insets right="60.0" />
+                  <Insets left="90.0" right="60.0" />
                </HBox.margin>
             </Button>
             <VBox alignment="CENTER" prefHeight="62.0" prefWidth="222.0">
@@ -150,7 +153,10 @@
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backToMenu" prefWidth="55.0" />
+            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backToMenu" prefHeight="50.0" prefWidth="50.0" styleClass="buttonexit">
+               <HBox.margin>
+                  <Insets left="90.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </children>

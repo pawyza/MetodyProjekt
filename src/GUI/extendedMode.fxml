@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.ScatterChart?>
 <?import javafx.scene.control.Button?>
@@ -7,39 +8,81 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtendedModeController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0C1016;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtendedModeController">
    <children>
-      <Button fx:id="btnStart" layoutX="234.0" layoutY="328.0" mnemonicParsing="false" onAction="#btnStart_OnAction" text="Pchnij drąga" />
-      <Button fx:id="btnReturn" layoutX="514.0" layoutY="328.0" mnemonicParsing="false" onAction="#btnReturn_OnAction" text="Return" />
-      <HBox layoutX="26.0" layoutY="57.0" prefHeight="210.0" prefWidth="169.0">
+      <Button fx:id="btnReturn" layoutX="550.0" layoutY="350.0" mnemonicParsing="false" onAction="#btnReturn_OnAction" prefHeight="50.0" prefWidth="50.0" styleClass="buttonexit" stylesheets="@../Stylesheets/classicGameStylesheet.css" />
+      <HBox prefHeight="210.0" prefWidth="200.0" styleClass="textBGextended" stylesheets="@../Stylesheets/classicGameStylesheet.css">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER_RIGHT" prefHeight="210.0" prefWidth="129.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position X" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Position Y" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity X" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity Y" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mass" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Angle" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thrust" />
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Position X: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Position Y: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity X: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Velocity Y: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Mass: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Angle: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Thrust: ">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Text fx:id="txt_PositionX" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                  <Text fx:id="txt_PositionY" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                  <Text fx:id="txt_VelocityX" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                  <Text fx:id="txt_VelocityY" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                  <Text fx:id="txt_Mass" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                  <Text fx:id="txt_Angle" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-                  <Text fx:id="txt_Thrust" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                  <Text fx:id="txt_PositionX" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fx:id="txt_PositionY" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fx:id="txt_VelocityX" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fx:id="txt_VelocityY" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fx:id="txt_Mass" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fx:id="txt_Angle" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
+                  <Text fx:id="txt_Thrust" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Text>
                </children>
             </VBox>
          </children>
       </HBox>
-      <ScatterChart fx:id="chart_RocketPosition" layoutX="215.0" layoutY="26.0" prefHeight="272.0" prefWidth="341.0">
+      <ScatterChart fx:id="chart_RocketPosition" layoutX="200.0" layoutY="14.0" legendVisible="false" prefHeight="345.0" prefWidth="397.0">
         <xAxis>
           <NumberAxis side="BOTTOM" />
         </xAxis>
@@ -47,7 +90,22 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </ScatterChart>
-      <Slider fx:id="slider_Thrust" blockIncrement="1.65" layoutX="26.0" layoutY="228.0" max="0.0" min="-160.5" orientation="VERTICAL" />
-      <Slider fx:id="slider_Angle" blockIncrement="5.0" layoutX="75.0" layoutY="284.0" max="90.0" min="-90.0" />
+      <Pane layoutY="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+         <children>
+            <Slider fx:id="slider_Thrust" blockIncrement="1.65" layoutX="14.0" layoutY="35.0" max="0.0" min="-160.5" orientation="VERTICAL" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+               <styleClass>
+                  <String fx:value="track" />
+                  <String fx:value="thumb" />
+               </styleClass>
+            </Slider>
+            <Slider fx:id="slider_Angle" blockIncrement="5.0" layoutX="45.0" layoutY="161.0" max="90.0" min="-90.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+               <styleClass>
+                  <String fx:value="track" />
+                  <String fx:value="thumb" />
+               </styleClass>
+            </Slider>
+            <Button fx:id="btnStart" layoutX="90.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnStart_OnAction" prefHeight="50.0" prefWidth="50.0" styleClass="buttonstart" stylesheets="@../Stylesheets/classicGameStylesheet.css" />
+         </children>
+      </Pane>
    </children>
 </Pane>

@@ -13,6 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Main.stage = primaryStage;
+        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
         primaryStage.setTitle("Moon Landing Simulator");
         primaryStage.setScene(new Scene(root, 600, 400));

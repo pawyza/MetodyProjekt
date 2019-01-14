@@ -1,6 +1,14 @@
-.button {
+.buttonstart{
+     -fx-background-color: transparent;
+     -fx-background-image: url('/resources/Images/button.png');
+     -fx-background-size: 50px;
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: 50%;
+ }
+
+.buttonexit{
     -fx-background-color: transparent;
-    -fx-background-image: url('/resources/Images/button.png');
+    -fx-background-image: url('/resources/Images/exit.png');
     -fx-background-size: 50px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
@@ -19,8 +27,15 @@
 }
 
 .hbox {
+     -fx-background-color: transparent;
+     -fx-background-image: url('/resources/Images/background.png');
+     -fx-background-size: 200px;
+     -fx-background-position: 50%;
+ }
+
+.pane {
     -fx-background-color: transparent;
-    -fx-background-image: url('/resources/Images/background.png');
+    -fx-background-image: url('/resources/Images/backgroundPane.png');
     -fx-background-size: 200px;
     -fx-background-position: 50%;
 }
@@ -29,6 +44,14 @@
     -fx-background-color: transparent;
     -fx-background-image: url('/resources/Images/displayer.png');
     -fx-background-size: 80px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 50%;
+}
+
+.textBGextended {
+    -fx-background-color: transparent;
+    -fx-background-image: url('/resources/Images/displayerExtended.png');
+    -fx-background-size: 200px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 50%;
 }
