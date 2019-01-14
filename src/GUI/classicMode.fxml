@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.ScatterChart?>
@@ -113,13 +114,17 @@
                   </HBox>
                </children>
             </VBox>
-            <ScatterChart fx:id="chart_Phase" layoutX="309.0" layoutY="146.0" legendVisible="false" prefHeight="195.0" prefWidth="208.0">
+            <ScatterChart fx:id="chart_Phase" layoutX="309.0" layoutY="146.0" legendVisible="false" prefHeight="195.0" prefWidth="208.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
               <xAxis>
                 <NumberAxis label="Velocity" side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis label="Height" side="LEFT" />
               </yAxis>
+               <styleClass>
+                  <String fx:value="axis-label" />
+                  <String fx:value="axis" />
+               </styleClass>
             </ScatterChart>
          </children>
       </Pane>

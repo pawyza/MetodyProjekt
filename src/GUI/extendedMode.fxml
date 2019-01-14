@@ -82,12 +82,12 @@
             </VBox>
          </children>
       </HBox>
-      <ScatterChart fx:id="chart_RocketPosition" layoutX="200.0" layoutY="14.0" legendVisible="false" prefHeight="345.0" prefWidth="397.0">
+      <ScatterChart fx:id="chart_RocketPosition" layoutX="200.0" layoutY="14.0" legendVisible="false" prefHeight="345.0" prefWidth="397.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
         <xAxis>
-          <NumberAxis side="BOTTOM" />
+          <NumberAxis label="Velocity" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis label="Height" side="LEFT" />
         </yAxis>
       </ScatterChart>
       <Pane layoutY="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane" stylesheets="@../Stylesheets/classicGameStylesheet.css">

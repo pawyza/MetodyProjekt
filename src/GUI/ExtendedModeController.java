@@ -139,6 +139,7 @@ public class ExtendedModeController implements Initializable {
     void btnStart_OnAction(ActionEvent event) {
         if (pressed) {
             thread.stop();
+            draw.clearChart();
         } else {
             thread = new Threads();
             for (Observer o : observers) {

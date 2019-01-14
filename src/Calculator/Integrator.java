@@ -79,7 +79,7 @@ public class Integrator implements Observer {
     }
 
     private boolean landed() {
-        if ((rocket.getyPosition() <= 0) && rocket.getVelocity() > -100)
+        if ((rocket.getyPosition() <= 0) && rocket.getVelocity() > -2)
             return true;
         else return false;
     }
