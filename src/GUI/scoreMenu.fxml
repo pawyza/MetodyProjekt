@@ -16,6 +16,6 @@
          </columns>
       </TableView>
      
-      <Button fx:id="btn_Return" layoutX="117.0" layoutY="373.0" mnemonicParsing="false" onAction="#backToMenu" text="Button" />
+      <Button fx:id="btn_Return" layoutX="536.0" layoutY="373.0" mnemonicParsing="false" onAction="#backToMenu" text="Return" />
    </children>
 </Pane>

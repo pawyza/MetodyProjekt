@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import score.ScoreDAO;
 import score.TextScoreDAO;
 
 
@@ -36,19 +37,34 @@ public class ScoreMenuController implements Initializable {
 
         Integrator integrator = DataStore.integrator;
 
-        if (integrator != null) {
-            //nie umiem tu pobrać metody która zwróci mi scores
-            try {
-                scores = FXCollections.observableArrayList(new TextScoreDAO(new File("resources/scores.txt")).findAll());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                scores = FXCollections.observableArrayList();
+
+            if (integrator != null) {
+                try {
+                    scores = FXCollections.observableArrayList(new TextScoreDAO(new File("resources/scores.txt")).findAll());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    scores = FXCollections.observableArrayList();
+                }
+                tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+                tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+                tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
+                tableScores.setCellValueFactory(new PropertyValueFactory<>("score"));
+                tableScore.setItems(scores);
             }
-            tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-            tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
-            tableScores.setCellValueFactory(new PropertyValueFactory<>("score"));
-            tableScore.setItems(scores);
+        else {
+            ScoreDAO scoreDAO = new TextScoreDAO(new File("resources/scores.txt"));
+            ObservableList<Score> scores= null;
+            try {
+                scores = FXCollections.observableArrayList(scoreDAO.findAll());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+                tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+                tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
+                tableScores.setCellValueFactory(new PropertyValueFactory<>("score"));
+                tableScore.setItems(scores);
+
         }
 
 
