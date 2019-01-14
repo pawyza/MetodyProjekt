@@ -1,4 +1,4 @@
-package Score;
+package score;
 
 import Calculator.Integrator;
 

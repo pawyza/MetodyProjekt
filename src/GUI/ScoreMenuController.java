@@ -2,7 +2,7 @@ package GUI;
 
 import Calculator.Integrator;
 import Model.DataStore;
-import Score.Score;
+import score.Score;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +16,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import score.TextScoreDAO;
 
-import java.awt.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,7 +38,12 @@ public class ScoreMenuController implements Initializable {
 
         if (integrator != null) {
             //nie umiem tu pobrać metody która zwróci mi scores
-            scores = FXCollections.observableArrayList(new Score("attempt 1", integrator.getT(), integrator.getSuccessRocket().getRocket().getMass() - 1000));
+            try {
+                scores = FXCollections.observableArrayList(new TextScoreDAO(new File("resources/scores.txt")).findAll());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                scores = FXCollections.observableArrayList();
+            }
             tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
             tableTime.setCellValueFactory(new PropertyValueFactory<>("time"));
             tableThrust.setCellValueFactory(new PropertyValueFactory<>("thrust"));
