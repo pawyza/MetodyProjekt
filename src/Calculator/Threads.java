@@ -6,8 +6,11 @@ import GameUI.GameManager;
 import Interfaces.Observable;
 import Interfaces.Observer;
 import Exceptions.RocketCrashedException;
-import Score.Score;
+import score.Score;
+import score.ScoreDAO;
+import score.TextScoreDAO;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Threads implements Runnable, Observable {
@@ -15,12 +18,14 @@ public class Threads implements Runnable, Observable {
     private Landed landedRocket;
 
     private volatile ArrayList<Observer> observers = new ArrayList<>();
+    private ScoreDAO scoreDAO = new TextScoreDAO(new File("resources/scores.txt"));
     private Thread thread;
     private volatile boolean running = false;
     //TODO PAWYZA -> Zmieniłem czas integrateTime na 1000 -> Krok całkowania też na 1s bo tak wynika z treści zadania.
     private int actualTime = 0;
-    private int refreshTime = 50;
+    private int refreshTime = 100; //50
     private int integrateTime = 1000;
+    private int landingNo = 1;
 
     public Threads() {
 
@@ -95,20 +100,15 @@ public class Threads implements Runnable, Observable {
             try {
                 if(o instanceof Integrator){
                     if(((Integrator) o).isIfLandedSuccess()){
-                        /*if(o instanceof GameManager(tutaj zamiast game managera możesz wrzucić nazwe klasy która będzie dostawała wynik))
-                            o.update(); wtedy ten update bedzie updateował tą klasę tylko raz w momencie sukcesu przy wyladowaniu i wtedy mozesz pobrac sobie parametry z rakiety
-                            przy uzyciu np. Integrator.getRocket()
-
-                            klasa ktora bedzie tworzyla rekord wygrania musi zawierac pole z integratorem (musisz tworzyc obiekt tej klasy w initialize classicGameController)
-                            z integratora wyciagasz sobie wtedy calkowity czas getT()
-                        */
+                        Integrator i = (Integrator) o;
+                        double time = i.getT();
+                        double thrust = i.getSuccessRocket().getRocket().getThrust();
+                        Score score = new Score("landing no "+landingNo++,time,thrust);
+                        scoreDAO.add(score);
                         System.out.println(((Integrator) o).getSuccessRocket().getRocket().toString());
                         stop();
                     }
-                    if (o instanceof Score){
-                        o.update();
-                    }
-                    // TODO: 10.01.2019 DAVID TUTAJ MASZ ZWROCONA RAKIETE Z PARAMETRAMI  
+                    // TODO:  TUTAJ  ZWROCONA  RAKIETA Z PARAMETRAMI
                 }
                 if(o instanceof GameManager)
                     o.update();
@@ -119,6 +119,8 @@ public class Threads implements Runnable, Observable {
                 stop();
             } catch (OutOfFuelException e) {
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
