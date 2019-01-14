@@ -1,12 +1,13 @@
 package GUI;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 
 public class SettingsMenuController {
@@ -15,7 +16,7 @@ public class SettingsMenuController {
     private Button backBtn;
 
     @FXML
-    void BackToMenu(ActionEvent event) {
+    public void BackToMenu(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
             GUI.Main.stage.setScene(new Scene(root));
@@ -24,6 +25,7 @@ public class SettingsMenuController {
             throw new RuntimeException(exception);
         }
     }
+
 
 }
 
