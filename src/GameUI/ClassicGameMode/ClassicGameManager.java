@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import javafx.scene.text.Text;
 
 
 public class ClassicGameManager extends GameManager implements Observer {
@@ -54,7 +54,6 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     //game background
     private Image earthImage;
-    private Image starImage;
     private ImageView earthView;
     private int earthFitWidth = 150;
     private int earthFitHeight = 150;
@@ -62,14 +61,24 @@ public class ClassicGameManager extends GameManager implements Observer {
     private double lastHeightUpdateEarth;
     private double earthVerticalPosition;
 
-    public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight, Integrator integrator) {
+
+    //animation
+    private ImageView flameView;
+    private Image[] flameAnimation;
+    private int flameFitWidth = 15;
+    private int flameFitHeight = 30;
+    private double maxFlame;
+
+    public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight, Integrator integrator, double thrustMax) {
         super(gameDrawingPane);
         this.mapDrawingPane = mapDrawingPane;
         mapPaneHeight = mapDrawingPane.getPrefHeight();
         mapPaneWidth = mapDrawingPane.getPrefWidth();
         this.totalHeight = totalHeight;
         this.integrator = integrator;
+        maxFlame = Math.abs(thrustMax);
         loadImages();
+        loadAnimation();
         setUpGamePane();
         setUpMapPane();
         calculateRatio();
@@ -89,11 +98,17 @@ public class ClassicGameManager extends GameManager implements Observer {
     private void loadImages(){
         try {
             rocketImage = new Image("/resources/Images/rocket.png");
-            starImage = new Image("/resources/Images/star.png");
             surfaceImage = new Image("/resources/Images/surface.png");
             earthImage = new Image("/resources/Images/earth.png");
         } catch (IllegalArgumentException e) {
             System.out.println("Grafiki nie zostaly poprawnie wczytane.");
+        }
+    }
+
+    private void loadAnimation(){
+        flameAnimation = new Image[6];
+        for (int i = 0; i<6; i++){
+            flameAnimation[i] = new Image("/resources/Images/FlameAnimation/"+(i+1)+".png");
         }
     }
 
@@ -134,6 +149,13 @@ public class ClassicGameManager extends GameManager implements Observer {
         rocketView.setX((getGamePaneWidth()-rocketFitWidth)/2);
         rocketView.setY(rocketVerticalPosition);
 
+        flameView = new ImageView(flameAnimation[0]);
+        flameView.setFitHeight(1);
+        flameView.setFitWidth(1);
+        flameView.setX(rocketView.getX()+rocketFitWidth/2);
+        flameView.setY(rocketView.getY()+50);
+        flameView.setRotate(180);
+
         lastHeightUpdateEarth = totalHeight;
         earthView = new ImageView(earthImage);
         earthView.setFitHeight(earthFitHeight);
@@ -149,7 +171,8 @@ public class ClassicGameManager extends GameManager implements Observer {
         surfaceView.setX(0);
         surfaceView.setY(getGamePaneHeight());
 
-        getGameDrawingPane().getChildren().addAll(rocketView,earthView,surfaceView);
+        getGameDrawingPane().getChildren().addAll(rocketView,flameView,earthView,surfaceView);
+        flameView.toFront();
         rocketView.toFront();
     }
 
@@ -161,11 +184,34 @@ public class ClassicGameManager extends GameManager implements Observer {
     @Override
     public void update() {
         blink();
+        scaleFlame();
+        actualImageFlame = animate(flameView,flameAnimation,actualImageFlame);
         moveMap();
         moveEarth();
         moveSurface();
         moveRocket();
         checkRocketState();
+    }
+
+    private void scaleFlame(){
+        flameView.setTranslateX(0);
+        double ratio = Math.abs(DataStore.integrator.getThrust().getThrust())/maxFlame;
+        double widthChange = ratio * flameFitWidth +1;
+        flameView.setTranslateX(-widthChange/2);
+        flameView.setFitWidth(widthChange);
+        flameView.setFitHeight(ratio * flameFitHeight +1);
+
+    }
+
+    private int actualImageFlame=0;
+
+    private int animate(ImageView imageView,Image[] images,int actualImage){
+        actualImage++;
+        if(images.length == actualImage){
+            actualImage = 0;
+        }
+        imageView.setImage(images[actualImage]);
+        return actualImage;
     }
 
     private void moveEarth() {
@@ -184,7 +230,9 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     private void moveRocket(){
         if(DataStore.integrator.getRocket().getyPosition()<(totalHeight/(surfaceCloseRatio^2))){
+            moveDown(lastHeightUpdateRocket,meterToPixelRatioRocket,flameView);
             lastHeightUpdateRocket = moveDown(lastHeightUpdateRocket,meterToPixelRatioRocket,rocketView);
+
         }
     }
 
@@ -231,6 +279,8 @@ public class ClassicGameManager extends GameManager implements Observer {
         rocketView.setY(getGamePaneHeight()-(surfaceFitHeight/2+rocketFitHeight));
         mapRocket.setTranslateY(0);
         mapRocket.setY((mapPaneHeight-(mapGroundHeight + mapRocketSize)));
+        flameView.setTranslateY(0);
+        flameView.setY(rocketView.getY()+45);
     }
 
     private void checkRocketState() {

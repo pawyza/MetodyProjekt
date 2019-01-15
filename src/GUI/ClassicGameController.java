@@ -76,7 +76,7 @@ public class ClassicGameController implements Initializable {
 
         DataStore.integrator.setThrust(thrust);
 
-        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane,startHeight,DataStore.integrator);
+        classicGameManager = new ClassicGameManager(gameDrawingPane,mapDrawingPane,startHeight,DataStore.integrator,slider_Thrust.getMin());
 
 // add observers to list
 
