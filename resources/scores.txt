@@ -1,2 +1,1 @@
 landing no 1,89.0,1185.29
-landing no 1,214.0,0.0
