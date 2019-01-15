@@ -10,11 +10,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
-
+/**
+ * Klasa odpowiadajaca za animacje w trybie klasycznym dziedzicząca po Klasie GameManager
+ */
 public class ClassicGameManager extends GameManager implements Observer {
 
+    /**
+     * Deklaracje pol klasy
+     */
     private Pane mapDrawingPane;
     private double mapPaneWidth;
     private double mapPaneHeight;
@@ -69,6 +73,14 @@ public class ClassicGameManager extends GameManager implements Observer {
     private int flameFitHeight = 30;
     private double maxFlame;
 
+    /**
+     * Konstruktor klasy ClassicGameManager
+     * @param gameDrawingPane pane wyswietlajacy animacje poruszajacego sie statku oraz tla
+     * @param mapDrawingPane pane wyswietlajacy minimape pokazujacy odleglosc statku od podloza
+     * @param totalHeight wysokosc od ktorej rozpoczyna sie ruch statku
+     * @param integrator integrator wykonujacy obliczenia
+     * @param thrustMax maksymalna wartosc przyspieszenia
+     */
     public ClassicGameManager(Pane gameDrawingPane, Pane mapDrawingPane, double totalHeight, Integrator integrator, double thrustMax) {
         super(gameDrawingPane);
         this.mapDrawingPane = mapDrawingPane;
@@ -84,10 +96,17 @@ public class ClassicGameManager extends GameManager implements Observer {
         calculateRatio();
     }
 
+    /**
+     * Metoda pozwalajaca na ustawienie pola typu Integrator
+     * @param integrator integrator wykonujacy obliczenia
+     */
     public void setIntegrator(Integrator integrator){
         this.integrator = integrator;
     }
 
+    /**
+     * Metoda usuwajaca wszystkie elementy z obu pane'ow oraz ponownie przygotowujaca pane'y do wyswietlania
+     */
     public void resetPane(){
         getGameDrawingPane().getChildren().clear();
         mapDrawingPane.getChildren().clear();
@@ -95,6 +114,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         setUpGamePane();
     }
 
+    /**
+     * Metoda pobierajaca obrazy wyswietlanych elementow z katalogu /resources/Images/...
+     */
     private void loadImages(){
         try {
             rocketImage = new Image("/resources/Images/rocket.png");
@@ -105,6 +127,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         }
     }
 
+    /**
+     * Metoda pobierajaca obrazy potrzebne do wygenerowani animacji plomienia z katalogu /resources/Images/FlameAnimation/...
+     */
     private void loadAnimation(){
         flameAnimation = new Image[6];
         for (int i = 0; i<6; i++){
@@ -112,6 +137,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         }
     }
 
+    /**
+     * Metoda przygotowujaca pane minimapy
+     */
     private void setUpMapPane() {
 
         mapGroundWidth = mapPaneWidth;
@@ -133,6 +161,9 @@ public class ClassicGameManager extends GameManager implements Observer {
     private double meterToPixelRatioSurface;
     private double meterToPixelRatioRocket;
 
+    /**
+     * Metoda sluzaca do kalkulowania stosunkow metr/piksel dla kazdego z pol meterToPixel obiektu
+     */
     private void calculateRatio() {
         meterToPixelRatioMap = totalHeight / ((mapPaneHeight-(mapGroundHeight + mapRocketSize + mapRocketVerticalPosition)));
         meterToPixelRatioEarth = totalHeight/(earthVerticalPosition - earthMaxHeight);
@@ -140,6 +171,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         meterToPixelRatioRocket = (totalHeight/(surfaceCloseRatio^2))/(getGamePaneHeight()-(rocketFitHeight+surfaceFitHeight/2+rocketVerticalPosition));
     }
 
+    /**
+     * Metoda przygotowujaca pane wyswietlajacy animacje rozgrywki
+     */
     private void setUpGamePane(){
         lastHeightUpdateRocket = totalHeight/(surfaceCloseRatio^2);
         rocketView = new ImageView(rocketImage);
@@ -181,6 +215,9 @@ public class ClassicGameManager extends GameManager implements Observer {
     private int timeToBlink = 30;
     private boolean visible = true;
 
+    /**
+     * Metoda wywolujaca metody odpowiedzialne za zmiane wyglodu oraz polozenia elementow graficznych
+     */
     @Override
     public void update() {
         blink();
@@ -193,6 +230,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         checkRocketState();
     }
 
+    /**
+     * Metoda odpowiadajaca za skalowanie plomienia w zaleznosci od aktualnego ciagu
+     */
     private void scaleFlame(){
         flameView.setTranslateX(0);
         double ratio = Math.abs(DataStore.integrator.getThrust().getThrust())/maxFlame;
@@ -205,6 +245,13 @@ public class ClassicGameManager extends GameManager implements Observer {
 
     private int actualImageFlame=0;
 
+    /**
+     * Metoda generujaca animacje obiektu na podstawie dostarczonych obrazow
+     * @param imageView pole odpowiadajace za wyswietlanie animacji, do niego ladowane sa obrazy
+     * @param images lista tablicowa przygotowanych do animacji obrzow
+     * @param actualImage ostatnio wyswietlony obraz
+     * @return zwraca numer najnowszego wyswietlanego obrazu
+     */
     private int animate(ImageView imageView,Image[] images,int actualImage){
         actualImage++;
         if(images.length == actualImage){
@@ -214,20 +261,32 @@ public class ClassicGameManager extends GameManager implements Observer {
         return actualImage;
     }
 
+    /**
+     * Metoda wywolujca metode moveUp dla odpowiednio zadanych parametrow dla animacji ziemi. Odpowiada za ruch ziemi
+     */
     private void moveEarth() {
         lastHeightUpdateEarth = moveUp(lastHeightUpdateEarth,meterToPixelRatioEarth,earthView);
     }
 
+    /**
+     * Metoda wywolujca metode moveDown dla odpowiednio zadanych parametrow dla animacji znacznika na minimapie. Odpowiada za ruch na minimapie
+     */
     private void moveMap() {
         lastHeightUpdateMap= moveDown(lastHeightUpdateMap,meterToPixelRatioMap,mapRocket);
     }
 
+    /**
+     * Metoda wywolujca metode moveUp dla odpowiednio zadanych parametrow dla animacji podloza. Odpowiada za przyblizanie powierzchni w koncowej fazie lotu
+     */
     private void moveSurface() {
         if(DataStore.integrator.getRocket().getyPosition()<(totalHeight/surfaceCloseRatio)){
             lastHeightUpdateSurface = moveUp(lastHeightUpdateSurface,meterToPixelRatioSurface,surfaceView);
         }
     }
 
+    /**
+     * Metoda wywolujca metode moveDown dla odpowiednio zadanych parametrow dla animacji rakiety oraz jej plomieni. Odpowiada za ruch rakiety oraz plomieni w koncowej fazie lotu
+     */
     private void moveRocket(){
         if(DataStore.integrator.getRocket().getyPosition()<(totalHeight/(surfaceCloseRatio^2))){
             moveDown(lastHeightUpdateRocket,meterToPixelRatioRocket,flameView);
@@ -236,6 +295,13 @@ public class ClassicGameManager extends GameManager implements Observer {
         }
     }
 
+    /**
+     * Metoda wywolujaca przesuniecie odpowiedniego obiektu w dol o zadana wartosc
+     * @param lastHeightUpdate ostatnia wartosc, ktora spowodowala przesuniecie obiektu
+     * @param ratio stosunek metr/piksel dla odpowiedniego obiektu
+     * @param view node do przesuwanego obiektu
+     * @return zwraca najnowsza wartosc, ktora spowodowala przesuniecie obiektu
+     */
     private double moveDown(double lastHeightUpdate, double ratio, Node view){
         if(DataStore.integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
             int steps = (int)((Math.abs(lastHeightUpdate -DataStore.integrator.getRocket().getyPosition()))/ ratio);
@@ -252,7 +318,13 @@ public class ClassicGameManager extends GameManager implements Observer {
         }
         return lastHeightUpdate;
     }
-
+    /**
+     * Metoda wywolujaca przesuniecie odpowiedniego obiektu w gore o zadana wartosc
+     * @param lastHeightUpdate ostatnia wartosc, ktora spowodowala przesuniecie obiektu
+     * @param ratio stosunek metr/piksel dla odpowiedniego obiektu
+     * @param view node do przesuwanego obiektu
+     * @return zwraca najnowsza wartosc, ktora spowodowala przesuniecie obiektu
+     *      */
     private double moveUp(double lastHeightUpdate, double ratio, Node view){
         if(DataStore.integrator.getRocket().getyPosition()<(lastHeightUpdate - ratio)){
             int steps = (int)((Math.abs(lastHeightUpdate -DataStore.integrator.getRocket().getyPosition()))/ ratio);
@@ -270,6 +342,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         return lastHeightUpdate;
     }
 
+    /**
+     * Metoda ustawiajca ostatnia wyswietlana klatke, dba o poprawne koncowe ulozenie elementow
+     */
     private void lineUpLanding(){
         earthView.setTranslateY(0);
         earthView.setY(30);
@@ -285,6 +360,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         flameView.setFitWidth(1);
     }
 
+    /**
+     * Metoda zmieniajaca wyglad rakiety oraz jej znacznik na minimapie w momencie poprawnego wyladowania lub rozbicia
+     */
     private void checkRocketState() {
         if (DataStore.integrator.getRocket().getyPosition() <= 0){
             System.out.println(integrator.isIfLandedSuccess());
@@ -300,6 +378,9 @@ public class ClassicGameManager extends GameManager implements Observer {
         }
     }
 
+    /**
+     * Metoda odpowiadajaca za miganie znacznika
+     */
     private void blink() {
 
         if (!visible && blinkingTime == timeToBlink) {
