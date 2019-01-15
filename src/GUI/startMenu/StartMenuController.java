@@ -23,7 +23,7 @@ public class StartMenuController {
     @FXML
     void onClassicClick(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("classicGame/classicMode.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/classicGame/classicMode.fxml"));
             GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
@@ -36,7 +36,7 @@ public class StartMenuController {
     @FXML
     void onExpandedClick(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("extendedMode/extendedMode.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/extendedMode/extendedMode.fxml"));
             GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
@@ -50,7 +50,7 @@ public class StartMenuController {
     @FXML
     void onScoreClick(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("scoreMenu/scoreMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/scoreMenu/scoreMenu.fxml"));
             GUI.Main.stage.setScene(new Scene(root));
         } catch (IOException exception) {
             throw new RuntimeException(exception);

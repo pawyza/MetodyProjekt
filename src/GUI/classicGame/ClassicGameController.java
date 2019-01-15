@@ -206,7 +206,7 @@ public class ClassicGameController implements Initializable {
             if (pressed) {
                 thread.stop();
             }
-            Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/startMenu/startMenu.fxml"));
             GUI.Main.stage.setScene(new Scene(root));
 
         } catch (IOException exception) {

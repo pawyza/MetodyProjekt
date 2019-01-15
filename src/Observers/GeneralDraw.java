@@ -1,6 +1,6 @@
 package Observers;
 
-import Calculator.ExpandedIntegrator;
+import Calculator.ExtendedIntegrator;
 import Calculator.Integrator;
 import Interfaces.Observer;
 import javafx.application.Platform;
@@ -13,7 +13,7 @@ public class GeneralDraw implements Observer {
     private ScatterChart<Number, Number> chart;
     private XYChart.Series data;
     private Integrator integrator;
-    private ExpandedIntegrator expandedIntegrator;
+    private ExtendedIntegrator expandedIntegrator;
     private boolean isextended = false;
 
     public GeneralDraw(ScatterChart<Number, Number> chart, Integrator integrator) {
@@ -23,7 +23,7 @@ public class GeneralDraw implements Observer {
         chart.getData().addAll(data);
     }
 
-    public GeneralDraw(ScatterChart<Number, Number> chart, ExpandedIntegrator expandedIntegrator) {
+    public GeneralDraw(ScatterChart<Number, Number> chart, ExtendedIntegrator expandedIntegrator) {
         this.chart = chart;
         this.isextended = true;
         this.expandedIntegrator = expandedIntegrator;
