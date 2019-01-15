@@ -4,6 +4,7 @@ import Calculator.ExpandedIntegrator;
 import Calculator.Integrator;
 import Interfaces.Observer;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
@@ -33,7 +34,6 @@ public class GeneralDraw implements Observer {
     public void clearChart() {
         data.getData().clear();
     }
-
     @Override
     public void update() {
         if (isextended) {

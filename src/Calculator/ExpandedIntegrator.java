@@ -136,7 +136,7 @@ public class ExpandedIntegrator extends Integrator implements Observer {
 
     }
 
-    private boolean landed() {
+    protected boolean landed() {
         if ((this.rocket.getyPosition() <= 0) && this.rocket.getVelocity() > -100)
             return true;
         else return false;
