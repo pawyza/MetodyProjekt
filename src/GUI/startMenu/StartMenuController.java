@@ -57,18 +57,4 @@ public class StartMenuController {
         }
     }
 
-
-    /** Przycisk umożliwiający zmianę ustawień
-     * @param event
-     */
-    @FXML
-    void onSettingsClick(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("settingsMenu/settingsMenu.fxml"));
-            GUI.Main.stage.setScene(new Scene(root));
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
-
 }
