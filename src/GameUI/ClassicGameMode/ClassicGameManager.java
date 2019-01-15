@@ -281,6 +281,8 @@ public class ClassicGameManager extends GameManager implements Observer {
         mapRocket.setY((mapPaneHeight-(mapGroundHeight + mapRocketSize)));
         flameView.setTranslateY(0);
         flameView.setY(rocketView.getY()+45);
+        flameView.setFitHeight(1);
+        flameView.setFitWidth(1);
     }
 
     private void checkRocketState() {
@@ -310,7 +312,5 @@ public class ClassicGameManager extends GameManager implements Observer {
         blinkingTime++;
         if (blinkingTime > timeToBlink)
             blinkingTime = 0;
-
-
     }
 }
