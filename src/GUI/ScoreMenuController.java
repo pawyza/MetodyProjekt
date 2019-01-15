@@ -1,5 +1,6 @@
 package GUI;
 
+import Calculator.ExpandedIntegrator;
 import Calculator.Integrator;
 import Model.DataStore;
 import score.Score;
@@ -32,13 +33,14 @@ public class ScoreMenuController implements Initializable {
 
     private ObservableList<Score> scores;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Integrator integrator = DataStore.integrator;
+        ExpandedIntegrator expandedIntegrator=DataStore.expandedIntegrator;
 
-
-            if (integrator != null) {
+            if (integrator != null || expandedIntegrator != null) {
                 try {
                     scores = FXCollections.observableArrayList(new TextScoreDAO(new File("resources/scores.txt")).findAll());
                 } catch (FileNotFoundException e) {
