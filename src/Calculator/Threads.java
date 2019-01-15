@@ -1,6 +1,5 @@
 package Calculator;
 
-import Model.Landed;
 import Exceptions.OutOfFuelException;
 import GameUI.GameManager;
 import Interfaces.Observable;
@@ -13,15 +12,15 @@ import score.TextScoreDAO;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *  Klasa odpowiadająca za wprowadzanie wątków do programu
+ */
 public class Threads implements Runnable, Observable {
-
-    private Landed landedRocket;
 
     private volatile ArrayList<Observer> observers = new ArrayList<>();
     private ScoreDAO scoreDAO = new TextScoreDAO(new File("resources/scores.txt"));
     private Thread thread;
     private volatile boolean running = false;
-    //TODO PAWYZA -> Zmieniłem czas integrateTime na 1000 -> Krok całkowania też na 1s bo tak wynika z treści zadania.
     private int actualTime = 0;
     private int refreshTime = 100; //50
     private int integrateTime = 1000;
@@ -29,11 +28,10 @@ public class Threads implements Runnable, Observable {
 
     public Threads() {
 
-
     }
 
     /**
-     * Stop thread
+     * Zatrzymaj wątek
      */
 
     public void stop() {
@@ -44,7 +42,7 @@ public class Threads implements Runnable, Observable {
     }
 
     /**
-     * Start new thread
+     * Rozpocznij nowy wątek
      */
     public void start() {
         System.out.println("Starting new thread");
@@ -81,18 +79,27 @@ public class Threads implements Runnable, Observable {
 
     }
 
+    /** Dodaj obserwatora do listy
+     * @param observer obserwator do dodania
+     */
     @Override
     public void addObserver(Observer observer) {
         if (!observers.contains(observer))
             observers.add(observer);
     }
 
+    /** Usuń obserwatora z listy
+     * @param observer obserwator do usunięcia
+     */
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
 
+    /**
+     *  Metoda do aktualizowania obserwatorów
+     */
     @Override
     public void updateObservers(){
 
@@ -108,7 +115,7 @@ public class Threads implements Runnable, Observable {
                         System.out.println(((Integrator) o).getSuccessRocket().getRocket().toString());
                         stop();
                     }
-                    // TODO:  TUTAJ  ZWROCONA  RAKIETA Z PARAMETRAMI
+
                 }
                 if(o instanceof GameManager)
                     o.update();

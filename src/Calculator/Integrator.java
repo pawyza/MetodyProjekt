@@ -7,6 +7,10 @@ import Interfaces.Observer;
 import Model.Rocket;
 import Observers.Thrust;
 
+
+/**
+ *  Klasa zawierająca metody do obliczenia pozycji rakiety
+ */
 public class Integrator implements Observer {
 
     private static Rocket rocket;
@@ -24,6 +28,11 @@ public class Integrator implements Observer {
     private double heightNext;
     private double velocityNext;
 
+
+    /** Konstruktor
+     * @param rocket Obiekt zawierający pozycje rakiety
+     * @param dt Krok całkowania
+     */
     public Integrator(Rocket rocket, double dt) {
         this.rocket = rocket;
         this.dt = dt;
@@ -31,11 +40,11 @@ public class Integrator implements Observer {
     }
 
     /**
-     * Integrete position of rocket
+     * Oblicz pozycje rakiety
      *
-     * @param rocket
-     * @param thrust Thrust of engine
-     * @return Position of rocket after step time
+     * @param rocket Obiekt zawierający pozycje rakiety
+     * @param thrust Siła ciągu silnika
+     * @return Pozycja rakiety po całkowaniu
      */
     public Rocket integrate(Rocket rocket, Thrust thrust) throws RocketCrashedException, OutOfFuelException {
 
@@ -78,12 +87,19 @@ public class Integrator implements Observer {
         }
     }
 
+
+    /** Funkcja sprawdzająca czy rakieta wylądowała
+     * @return Boolean zawierający informacje o wylądowaniu rakiety
+     */
     private boolean landed() {
         if ((rocket.getyPosition() <= 0) && rocket.getVelocity() > -2)
             return true;
         else return false;
     }
 
+    /** Funkcja sprawdzająca czy rakieta została rozbita
+     * @return Boolean zawierający informacje o rozbiciu rakiety
+     */
     private boolean crashed() {
         if (rocket.getyPosition() < 0) {
             return true;
@@ -94,6 +110,9 @@ public class Integrator implements Observer {
 
     }
 
+    /** Funkcja sprawdzająca stan paliwa rakiety
+     * @return Boolean zawierjący informacje o stanie paliwa rakiety
+     */
     private boolean noFuel() {
         if (rocket.getMass() <= 1000) {
             return true;
@@ -136,6 +155,10 @@ public class Integrator implements Observer {
         this.ifLandedSuccess = ifLandedSuccess;
     }
 
+    /** Funkcja do aktualizowania pozycji rakiety
+     * @throws RocketCrashedException Rozbita rakieta
+     * @throws OutOfFuelException Brak paliwa
+     */
     @Override
     public void update() throws RocketCrashedException, OutOfFuelException {
         try {

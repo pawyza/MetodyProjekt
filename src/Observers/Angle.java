@@ -5,6 +5,9 @@ import Exceptions.RocketCrashedException;
 import Interfaces.Observer;
 import javafx.scene.text.Text;
 
+/**
+ *  Klasa obserwująca kąt rakiety
+ */
 public class Angle implements Observer {
 
     private static double angle;
@@ -14,6 +17,10 @@ public class Angle implements Observer {
         this.angle = angle;
     }
 
+    /** Konstruktor klasy kąt
+     * @param angle Kąt rakiety
+     * @param text Pole tekstowe w które ma zostać wpisana wartość kąt
+     */
     public Angle(double angle, Text text) {
         this.angle = angle;
         this.text = text;
@@ -35,8 +42,11 @@ public class Angle implements Observer {
         Angle.text = text;
     }
 
+    /**
+     * Aktualizowania pola tekstowego
+     */
     @Override
-    public void update() throws RocketCrashedException, OutOfFuelException {
+    public void update(){
         angle = Double.parseDouble(text.getText().replaceAll(",","."));
     }
 }

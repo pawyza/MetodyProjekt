@@ -9,10 +9,17 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
+/**
+ *  Kontroler menu głównego
+ */
 public class StartMenuController {
+
     @FXML
     private Pane mainPane;
 
+    /** Przycisk wybierający klasyczną wersję gry
+     * @param event
+     */
     @FXML
     void onClassicClick(ActionEvent event) {
         try {
@@ -23,6 +30,9 @@ public class StartMenuController {
         }
     }
 
+    /** Przycisko wybierający rozszerzoną wersję gry
+     * @param event
+     */
     @FXML
     void onExpandedClick(ActionEvent event) {
         try {
@@ -34,7 +44,9 @@ public class StartMenuController {
     }
 
 
-    //TODO tutaj  odczyt pliku .txt w ktorym sa przechowywane wyniki. I zrobic z nich observable list obiektow typu score ktore wrzucam potem do tej tabeli
+    /** Przycisk wybierający tabele wyników
+     * @param event
+     */
     @FXML
     void onScoreClick(ActionEvent event) {
         try {
@@ -46,6 +58,9 @@ public class StartMenuController {
     }
 
 
+    /** Przycisk umożliwiający zmianę ustawień
+     * @param event
+     */
     @FXML
     void onSettingsClick(ActionEvent event) {
         try {

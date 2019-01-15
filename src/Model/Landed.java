@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Rocket;
-
 public class Landed {
     Rocket rocket;
     public Landed(Rocket rocket){

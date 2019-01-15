@@ -3,6 +3,9 @@ package Interfaces;
 
 import Exceptions.RocketCrashedException;
 
+/**
+ * Interfejs implementujący metody dla obiektów które mogą być obserwowane
+ */
 public interface Observable {
 
     void addObserver(Observer observer);;

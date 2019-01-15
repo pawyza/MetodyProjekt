@@ -1,6 +1,6 @@
 package Model;
 
-import Calculator.ExpandedIntegrator;
+import Calculator.ExtendedIntegrator;
 import Calculator.Integrator;
 import Enum.RocketParametersType;
 import Interfaces.Observer;
@@ -10,15 +10,23 @@ import javafx.scene.text.Text;
 import java.text.DecimalFormat;
 
 
+/**
+ *  Klasa uzupełniająca pola interfejsu użytkownika w czasie rzeczywistym
+ */
 public class RocketParameters implements Observer {
 
     private Integrator integrator;
-    private ExpandedIntegrator expintegrator;
+    private ExtendedIntegrator expintegrator;
     private Text text;
     private RocketParametersType rocketParametersType;
     private DecimalFormat df = new DecimalFormat("#.##");
     private boolean extended = false;
 
+    /** Parametry rakiety dla gry trybu klasycznego
+     * @param rocketParametersType Typ parametru
+     * @param text Obserwowane pole tekstowe
+     * @param integrator Obiekt klasy obliczającej pozycje rakiety
+     */
     public RocketParameters(RocketParametersType rocketParametersType, Text text, Integrator integrator) {
 
         this.rocketParametersType = rocketParametersType;
@@ -26,7 +34,13 @@ public class RocketParameters implements Observer {
         this.integrator = integrator;
 
     }
-    public RocketParameters(RocketParametersType rocketParametersType, Text text, ExpandedIntegrator expintegrator) {
+
+    /** Parametry rakiety dla trybu rozszerzonego
+     * @param rocketParametersType Typ parametru
+     * @param text Obserwowane pole tekstowe
+     * @param expintegrator Obiekt klasy obliczającej pozycje rakiety
+     */
+    public RocketParameters(RocketParametersType rocketParametersType, Text text, ExtendedIntegrator expintegrator) {
 
         this.rocketParametersType = rocketParametersType;
         this.text = text;
@@ -36,6 +50,9 @@ public class RocketParameters implements Observer {
     }
 
 
+    /**
+     *  Aktualizowanie pola tekstowego przez wartość pobraną z klasy całkującej
+     */
     @Override
     public void update() {
         if (extended) {

@@ -1,10 +1,13 @@
 package Model;
 
-import Calculator.ExpandedIntegrator;
+import Calculator.ExtendedIntegrator;
 import Calculator.Integrator;
 
+/**
+ * Klasa przechowująca informacje o obiekcie całkującym
+ */
 public class DataStore {
     public static Integrator integrator;
-    public static ExpandedIntegrator expandedIntegrator;
+    public static ExtendedIntegrator extendedIntegrator;
 
 }

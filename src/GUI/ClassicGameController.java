@@ -1,11 +1,11 @@
 package GUI;
 
+
 import Calculator.Integrator;
 import Calculator.Threads;
 import Enum.RocketParametersType;
 import Exceptions.RocketCrashedException;
 import GameUI.ClassicGameMode.ClassicGameManager;
-import GameUI.GameManager;
 import Interfaces.Observer;
 import Model.DataStore;
 import Model.Rocket;
@@ -24,22 +24,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
 /**
- *
+ * Kontroler dla klasycznego trybu gry
  */
 public class ClassicGameController implements Initializable {
 
 
     /**
-     * Initialize parameters
+     * Deklaracja pól
      */
     private ArrayList<Observer> observers = new ArrayList<>();
 
@@ -58,6 +57,10 @@ public class ClassicGameController implements Initializable {
     private ClassicGameManager classicGameManager;
 
 
+    /** Inicjalizacja pól
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txtSliderValue.textProperty().bind(Bindings.format("%.2f", slider_Thrust.valueProperty()));
@@ -89,9 +92,16 @@ public class ClassicGameController implements Initializable {
         observers.add(classicGameManager);
 
     }
+
+    /**
+     *  Wykres fazowy rakiety
+     */
     @FXML
     private ScatterChart<Number,Number> chart_Phase;
 
+    /**
+     *  Pole tekstowe wyświetlające wartość slidera
+     */
     @FXML
     private Text txtSliderValue;
 
@@ -148,19 +158,19 @@ public class ClassicGameController implements Initializable {
     @FXML
     private Button btnChangeState;
 
-    /**
-     * Metoda ktorej celem jest zmiana stanu txtState
-     *
-     * @param event powstajacy w wypadku nacisniecia przycisku bynChangeState
-     */
+
 
 
     private boolean pressed = false;
 
+    /** Metoda startująca i stopująca wątek
+     * @param event
+     */
     @FXML
     void changeState(ActionEvent event) {
 
         if (pressed) {
+            txtState.setText("Stopped");
             thread.stop();
             draw.clearChart();
             classicGameManager.resetPane();

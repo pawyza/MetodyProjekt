@@ -1,8 +1,9 @@
 package GUI;
 
-import Calculator.ExpandedIntegrator;
+import Calculator.ExtendedIntegrator;
 import Calculator.Integrator;
 import Model.DataStore;
+import javafx.scene.Scene;
 import score.Score;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,9 +38,9 @@ public class ScoreMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Integrator integrator = DataStore.integrator;
-        ExpandedIntegrator expandedIntegrator=DataStore.expandedIntegrator;
+        ExtendedIntegrator extendedIntegrator =DataStore.extendedIntegrator;
 
-            if (integrator != null || expandedIntegrator != null) {
+            if (integrator != null || extendedIntegrator != null) {
                 try {
                     scores = FXCollections.observableArrayList(new TextScoreDAO(new File("resources/scores.txt")).findAll());
                 } catch (FileNotFoundException e) {

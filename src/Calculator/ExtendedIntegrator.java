@@ -1,6 +1,4 @@
 package Calculator;
-
-//TODO SPRAWDZIC CO JEST NIE TAK, NIE INICJALIZUJE OBIEKTOW, SPR. CONTROLLER, ROWNANIA !!
 /*
     Zakładając że wysokość (H) rakiety czyli położenie X to:
      Wedlug wzoru z MN:
@@ -30,7 +28,10 @@ import Model.Rocket;
 import Observers.Angle;
 import Observers.Thrust;
 
-public class ExpandedIntegrator extends Integrator implements Observer {
+/**
+ *  Klasa do obliczania pozycji rakiety dla opcji rozszerzonej
+ */
+public class ExtendedIntegrator extends Integrator implements Observer {
 
     private static Rocket rocket;
     private static Thrust thrust;
@@ -54,7 +55,7 @@ public class ExpandedIntegrator extends Integrator implements Observer {
 
 
     public void setThrust(Thrust thrust) {
-        ExpandedIntegrator.thrust = thrust;
+        ExtendedIntegrator.thrust = thrust;
     }
 
     public static Angle getAngle() {
@@ -62,10 +63,10 @@ public class ExpandedIntegrator extends Integrator implements Observer {
     }
 
     public static void setAngle(Angle angle) {
-        ExpandedIntegrator.angle = angle;
+        ExtendedIntegrator.angle = angle;
     }
 
-    public ExpandedIntegrator(Rocket rocket, double dt) {
+    public ExtendedIntegrator(Rocket rocket, double dt) {
         super(rocket, dt);
         this.rocket = rocket;
         this.dt = dt;
@@ -78,9 +79,17 @@ public class ExpandedIntegrator extends Integrator implements Observer {
     }
 
     public static void setRocket(Rocket rocket) {
-        ExpandedIntegrator.rocket = rocket;
+        ExtendedIntegrator.rocket = rocket;
     }
 
+    /** Metoda do obliczania pozycji [x,y] rakiety
+     * @param rocket Badany obiekt rakiety
+     * @param thrust Siła ciągu silnika
+     * @param angle Kąt rakiety
+     * @return Pozycja rakiety
+     * @throws OutOfFuelException
+     * @throws RocketCrashedException
+     */
     public Rocket expandedIntegrate(Rocket rocket, Thrust thrust, Angle angle) throws OutOfFuelException, RocketCrashedException {
 
         if (noFuel()) {
@@ -91,10 +100,10 @@ public class ExpandedIntegrator extends Integrator implements Observer {
 
         this.angle = angle;
 
-        positionYNext = rocket.getyPosition() + rocket.getVelocity() * Math.cos(angle.getAngle()) * dt;
-        positionXNext = rocket.getxPosition() + rocket.getVelocity() * Math.sin(angle.getAngle()) * dt;
-        velocityYNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() * Math.cos(angle.getAngle()) / rocket.getMass())) * dt;
-        velocityXNext = rocket.getVelocityX() + (-gravity - k * (thrust.getThrust() * Math.sin(angle.getAngle()) / rocket.getMass())) * dt;
+        positionYNext = rocket.getyPosition() + rocket.getVelocity() * Math.cos(Math.toRadians(angle.getAngle())) * dt;
+        positionXNext = rocket.getxPosition() + rocket.getVelocity() * Math.sin(Math.toRadians(angle.getAngle())) * dt;
+        velocityYNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() * Math.cos(Math.toRadians(angle.getAngle())) / rocket.getMass())) * dt;
+        velocityXNext = rocket.getVelocityX() + (-gravity - k * (thrust.getThrust() * Math.sin(Math.toRadians(angle.getAngle())) / rocket.getMass())) * dt;
         massNext = rocket.getMass() + thrust.getThrust() * dt;
         t = t + dt;
 
@@ -103,7 +112,7 @@ public class ExpandedIntegrator extends Integrator implements Observer {
 
         if(landed()){
             System.out.println("Landed succesfully");
-            successRocket = new Landed(ExpandedIntegrator.rocket);
+            successRocket = new Landed(ExtendedIntegrator.rocket);
             ifLandedSuccess = true;
             return this.rocket;
         }
@@ -121,11 +130,17 @@ public class ExpandedIntegrator extends Integrator implements Observer {
         }
     }
 
+    /** Funkcja do sprawdzania stanu paliwa rakiety
+     * @return Boolean zawierający informacje o stanie paliwa
+     */
     private boolean noFuel() {
         if (this.rocket.getMass() < 1000) return true;
         else return false;
     }
 
+    /** Funkcja do sprawdzania czy rakieta została rozbita
+     * @return Boolean zawierający informacje o rozbiciu rakiety
+     */
     private boolean crashed() {
         if (this.rocket.getyPosition() < 0) {
             return true;
@@ -136,12 +151,19 @@ public class ExpandedIntegrator extends Integrator implements Observer {
 
     }
 
-    protected boolean landed() {
+    /** Funkcja do sprawdzania czy rakieta wylądowała
+     * @return Boolean zawierający informacje o wylądowaniu rakiety
+     */
+    private boolean landed() {
         if ((this.rocket.getyPosition() <= 0) && this.rocket.getVelocity() > -100)
             return true;
         else return false;
     }
 
+    /** Funkcja do aktualizowania pozycji rakiety
+     * @throws RocketCrashedException
+     * @throws OutOfFuelException
+     */
     @Override
     public void update() throws RocketCrashedException, OutOfFuelException {
 

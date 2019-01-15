@@ -2,6 +2,9 @@ package Model;
 
 import Enum.RocketParametersType;
 
+/**
+ *  Klasa obrazująca rakietę
+ */
 public class Rocket{
 
     private double velocity;
@@ -12,6 +15,11 @@ public class Rocket{
     private double angle;
     private double thrust;
 
+    /** Konstruktor dla rakiety w trybie standardowym
+     * @param velocity Prędkość rakiety
+     * @param mass Masa rakiety
+     * @param yPosition Wysokość rakiety
+     */
     public Rocket(double velocity, double mass, double yPosition) {
 
         this.velocity = velocity;
@@ -20,6 +28,15 @@ public class Rocket{
 
     }
 
+    /** Konstruktor rakiety do trybu rozszerzonego
+     * @param velocity Prędkość Y rakiety
+     * @param velocityX Prędkość X rakiety
+     * @param mass Masa rakiety
+     * @param yPosition Wysokość (Pozycja Y) rakiety
+     * @param xPosition Pozycja X rakiety
+     * @param angle Kąt rakiety
+     * @param thrust Ciąg silnika rakiety
+     */
     public Rocket(double velocity, double velocityX, double mass, double yPosition, double xPosition, double angle,double thrust) {
         this.velocity = velocity;
         this.velocityX = velocityX;
@@ -87,6 +104,11 @@ public class Rocket{
         this.angle = angle;
     }
 
+    /**
+     * Metoda do pobierania poszczególnych wartości obiektu rakiety
+     * @param type Typ wartości do pobrania
+     * @return Pobrana wartość
+     */
     public double getData(RocketParametersType type) {
         switch (type) {
             case HEIGHT:
