@@ -1,4 +1,4 @@
-package GUI;
+package GUI.extendedMode;
 
 import Calculator.ExtendedIntegrator;
 import Calculator.Threads;
@@ -40,8 +40,8 @@ public class ExtendedModeController implements Initializable {
     private final double startXVelocity = 0;
     private final double startXPosition = 0;
     private final double startYPosition = 50000;
-    private final double startMass = 2137.14;
-    private final double startAngle = 1;
+    private final double startMass = 2130.14;
+    private final double startAngle = 0;
     private final double step = 0.1;
 
     private Threads thread;

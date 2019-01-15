@@ -9,13 +9,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ *
+ * Klasa służąca do zapisu i odczytu wyników podawanych do tabeli w ScoreMenu
+ *
+ * */
 public class TextScoreDAO implements ScoreDAO {
     private File src;
-
+    /**
+     * @param src
+     * plik do zapisu danych do tabeli wyników
+     *
+     */
     public TextScoreDAO(File src) {
         this.src = src;
     }
-
+    /**
+     *
+     * Metoda służąca do odczytu z pliku i dodaniu jej do listy scores
+     *
+     */
     @Override
     public List<Score> findAll() throws FileNotFoundException {
         Scanner sc = new Scanner(src);
@@ -26,12 +39,17 @@ public class TextScoreDAO implements ScoreDAO {
             String name = lineScanner.next();
             double time = lineScanner.nextDouble();
             double thrust = lineScanner.nextDouble();
+            // dodanie wartości z odczytanego pliku do listy scores
             scores.add(new Score(name,time,thrust));
         }
         sc.close();
         return scores;
     }
 
+    /**
+     *
+     * Metoda służąca do zapisu wartości do pliku scores.txt
+     */
     @Override
     public void add(Score score) throws IOException {
         FileWriter fw= new FileWriter(src,true);

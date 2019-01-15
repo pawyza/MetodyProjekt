@@ -1,4 +1,4 @@
-package GUI;
+package GUI.scoreMenu;
 
 import Calculator.ExtendedIntegrator;
 import Calculator.Integrator;

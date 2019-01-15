@@ -16,7 +16,7 @@ public class Main extends Application {
         Main.stage = primaryStage;
         stage.setResizable(false);
         stage.getIcons().add(new Image("/resources/Images/star.png"));
-        Parent root = FXMLLoader.load(getClass().getResource("startMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("startMenu/startMenu.fxml"));
         primaryStage.setTitle("Moon Landing Simulator");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
