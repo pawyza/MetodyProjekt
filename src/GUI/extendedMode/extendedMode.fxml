@@ -11,10 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0C1016;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ExtendedModeController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0C1016;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.extendedMode.ExtendedModeController">
    <children>
-      <Button fx:id="btnReturn" layoutX="550.0" layoutY="350.0" mnemonicParsing="false" onAction="#btnReturn_OnAction" prefHeight="50.0" prefWidth="50.0" styleClass="buttonexit" stylesheets="@../Stylesheets/classicGameStylesheet.css" />
-      <HBox prefHeight="210.0" prefWidth="200.0" styleClass="textBGextended" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+      <Button fx:id="btnReturn" layoutX="550.0" layoutY="350.0" mnemonicParsing="false" onAction="#btnReturn_OnAction" prefHeight="50.0" prefWidth="50.0" styleClass="buttonexit" stylesheets="@../../Stylesheets/classicGameStylesheet.css" />
+      <HBox prefHeight="210.0" prefWidth="200.0" styleClass="textBGextended" stylesheets="@../../Stylesheets/classicGameStylesheet.css">
          <children>
             <VBox alignment="CENTER_RIGHT" prefHeight="210.0" prefWidth="129.0">
                <children>
@@ -82,7 +82,7 @@
             </VBox>
          </children>
       </HBox>
-      <ScatterChart fx:id="chart_RocketPosition" layoutX="200.0" layoutY="14.0" legendVisible="false" prefHeight="345.0" prefWidth="397.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+      <ScatterChart fx:id="chart_RocketPosition" layoutX="200.0" layoutY="14.0" legendVisible="false" prefHeight="345.0" prefWidth="397.0" stylesheets="@../../Stylesheets/classicGameStylesheet.css">
         <xAxis>
           <NumberAxis label="Velocity" side="BOTTOM" />
         </xAxis>
@@ -90,21 +90,21 @@
           <NumberAxis label="Height" side="LEFT" />
         </yAxis>
       </ScatterChart>
-      <Pane layoutY="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+      <Pane layoutY="200.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane" stylesheets="@../../Stylesheets/classicGameStylesheet.css">
          <children>
-            <Slider fx:id="slider_Thrust" blockIncrement="1.65" layoutX="14.0" layoutY="35.0" max="0.0" min="-160.5" orientation="VERTICAL" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+            <Slider fx:id="slider_Thrust" blockIncrement="1.65" layoutX="14.0" layoutY="35.0" max="0.0" min="-160.5" orientation="VERTICAL" stylesheets="@../../Stylesheets/classicGameStylesheet.css">
                <styleClass>
                   <String fx:value="track" />
                   <String fx:value="thumb" />
                </styleClass>
             </Slider>
-            <Slider fx:id="slider_Angle" blockIncrement="5.0" layoutX="45.0" layoutY="161.0" max="90.0" min="-90.0" stylesheets="@../Stylesheets/classicGameStylesheet.css">
+            <Slider fx:id="slider_Angle" blockIncrement="5.0" layoutX="45.0" layoutY="161.0" max="90.0" min="-90.0" stylesheets="@../../Stylesheets/classicGameStylesheet.css">
                <styleClass>
                   <String fx:value="track" />
                   <String fx:value="thumb" />
                </styleClass>
             </Slider>
-            <Button fx:id="btnStart" layoutX="90.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnStart_OnAction" prefHeight="50.0" prefWidth="50.0" styleClass="buttonstart" stylesheets="@../Stylesheets/classicGameStylesheet.css" />
+            <Button fx:id="btnStart" layoutX="90.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnStart_OnAction" prefHeight="50.0" prefWidth="50.0" styleClass="buttonstart" stylesheets="@../../Stylesheets/classicGameStylesheet.css" />
          </children>
       </Pane>
    </children>

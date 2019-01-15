@@ -1,4 +1,4 @@
-package GUI;
+package GUI.extendedMode;
 
 import Calculator.ExtendedIntegrator;
 import Calculator.Threads;
