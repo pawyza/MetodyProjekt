@@ -38,9 +38,9 @@ public class ScoreMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Integrator integrator = DataStore.integrator;
-        ExtendedIntegrator extendedIntegrator =DataStore.extendedIntegrator;
 
-            if (integrator != null || extendedIntegrator != null) {
+
+            if (integrator != null) {
                 try {
                     scores = FXCollections.observableArrayList(new TextScoreDAO(new File("resources/scores.txt")).findAll());
                 } catch (FileNotFoundException e) {

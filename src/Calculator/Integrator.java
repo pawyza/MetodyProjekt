@@ -53,7 +53,8 @@ public class Integrator implements Observer {
         } else this.thrust = thrust;
 
 
-        heightNext = rocket.getyPosition() + rocket.getVelocity() * dt;
+        double vHalf = rocket.getVelocity() + dt*(-gravity - k * (thrust.getThrust() / rocket.getMass()));
+        heightNext = rocket.getyPosition() + vHalf * dt;
         velocityNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() / rocket.getMass())) * dt;
         massNext = rocket.getMass() + thrust.getThrust() * dt;
         t = t+dt;

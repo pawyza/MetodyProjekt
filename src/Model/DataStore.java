@@ -8,6 +8,5 @@ import Calculator.Integrator;
  */
 public class DataStore {
     public static Integrator integrator;
-    public static ExtendedIntegrator extendedIntegrator;
 
 }

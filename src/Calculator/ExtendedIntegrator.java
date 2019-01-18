@@ -100,8 +100,10 @@ public class ExtendedIntegrator extends Integrator implements Observer {
 
         this.angle = angle;
 
-        positionYNext = rocket.getyPosition() + rocket.getVelocity() * Math.cos(Math.toRadians(angle.getAngle())) * dt;
-        positionXNext = rocket.getxPosition() + rocket.getVelocity() * Math.sin(Math.toRadians(angle.getAngle())) * dt;
+        double vHalfY = rocket.getVelocity() + dt* (-gravity - k * (thrust.getThrust() * Math.cos(Math.toRadians(angle.getAngle())) / rocket.getMass()));
+        positionYNext = rocket.getyPosition() + vHalfY * Math.cos(Math.toRadians(angle.getAngle())) * dt;
+        double vHalfX = rocket.getVelocity() + dt*(-gravity - k * (thrust.getThrust() * Math.sin(Math.toRadians(angle.getAngle())) / rocket.getMass()));
+        positionXNext = rocket.getxPosition() + vHalfX * Math.sin(Math.toRadians(angle.getAngle())) * dt;
         velocityYNext = rocket.getVelocity() + (-gravity - k * (thrust.getThrust() * Math.cos(Math.toRadians(angle.getAngle())) / rocket.getMass())) * dt;
         velocityXNext = rocket.getVelocityX() + (-gravity - k * (thrust.getThrust() * Math.sin(Math.toRadians(angle.getAngle())) / rocket.getMass())) * dt;
         massNext = rocket.getMass() + thrust.getThrust() * dt;
