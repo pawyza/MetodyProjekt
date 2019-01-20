@@ -109,7 +109,7 @@ public class Threads implements Runnable, Observable {
                     if(((Integrator) o).isIfLandedSuccess()){
                         Integrator i = (Integrator) o;
                         double time = i.getT();
-                        double thrust = i.getSuccessRocket().getRocket().getThrust();
+                        double thrust = i.getSuccessRocket().getRocket().getMass()-1000;
                         Score score = new Score("landing no "+ landingNo++ ,time,thrust);
                         scoreDAO.add(score);
                         System.out.println(((Integrator) o).getSuccessRocket().getRocket().toString());
