@@ -162,32 +162,32 @@ public class ClassicGameController implements Initializable {
 
 
     private boolean pressed = false;
-
     /** Metoda startująca i stopująca wątek
      * @param event
      */
     @FXML
     void changeState(ActionEvent event) {
+        if(DataStore.integrator.getRocket().getyPosition() > 0) {
+            if (pressed) {
+                txtState.setText("Stopped");
+                thread.stop();
+            } else {
+                thread = new Threads();
+                txtState.setText("Running");
+                for (Observer o : observers) {
 
-        if (pressed) {
-            txtState.setText("Stopped");
-            thread.stop();
-            draw.clearChart();
-            classicGameManager.resetPane();
-        } else {
-            thread = new Threads();
-            txtState.setText("Running");
-            for (Observer o : observers) {
-
-                if (o instanceof Integrator) {
-                    o = new Integrator( DataStore.integrator.getRocket(), step);
-                    classicGameManager.setIntegrator((Integrator) o);
+                    if (o instanceof Integrator) {
+                        o = new Integrator(DataStore.integrator.getRocket(), step);
+                        classicGameManager.setIntegrator((Integrator) o);
+                    }
+                    thread.addObserver(o);
                 }
-                thread.addObserver(o);
+                thread.start();
             }
-            thread.start();
+            pressed = !pressed;
+        } else {
+            System.out.println("Rakieta juz wyladowala.");
         }
-        pressed = !pressed;
     }
 
 

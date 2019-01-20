@@ -30,7 +30,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtHeight" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="50000">
+                        <Text fx:id="txtHeight" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -105,7 +105,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtState" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyłączony">
+                        <Text fx:id="txtState" fill="#44cd5b" strokeType="OUTSIDE" strokeWidth="0.0" text="Stopped">
                            <font>
                               <Font size="15.0" />
                            </font>
